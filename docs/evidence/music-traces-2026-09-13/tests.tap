@@ -1,0 +1,76 @@
+TAP version 13
+# Subtest: historical three-ID backward trace produces axb on every replica
+ok 1 - historical three-ID backward trace produces axb on every replica
+  ---
+  duration_ms: 23.310004
+  type: 'test'
+  ...
+# Subtest: receiver iteration order does not change this fixed trace
+ok 2 - receiver iteration order does not change this fixed trace
+  ---
+  duration_ms: 6.091038
+  type: 'test'
+  ...
+# Subtest: recorded raw updates replay to the same state in a fresh replica
+ok 3 - recorded raw updates replay to the same state in a fresh replica
+  ---
+  duration_ms: 15.534092
+  type: 'test'
+  ...
+# Subtest: invalid causal delivery fails before applying a dependent update
+ok 4 - invalid causal delivery fails before applying a dependent update
+  ---
+  duration_ms: 4.323312
+  type: 'test'
+  ...
+# Subtest: duplicate causal delivery is harmless in the tested schedule
+ok 5 - duplicate causal delivery is harmless in the tested schedule
+  ---
+  duration_ms: 1.937953
+  type: 'test'
+  ...
+# Subtest: sequential control preserves insertion run
+ok 6 - sequential control preserves insertion run
+  ---
+  duration_ms: 2.839481
+  type: 'test'
+  ...
+# Subtest: concurrent disjoint control preserves both ends
+ok 7 - concurrent disjoint control preserves both ends
+  ---
+  duration_ms: 2.909535
+  type: 'test'
+  ...
+# Subtest: score converges and remains valid while bd changes lane
+ok 8 - score converges and remains valid while bd changes lane
+  ---
+  duration_ms: 3.041576
+  type: 'test'
+  ...
+# Subtest: score grammar rejects missing headers and executable-looking text
+ok 9 - score grammar rejects missing headers and executable-looking text
+  ---
+  duration_ms: 0.888946
+  type: 'test'
+  ...
+# Subtest: contiguity check rejects separated or reversed unique runs
+ok 10 - contiguity check rejects separated or reversed unique runs
+  ---
+  duration_ms: 0.749864
+  type: 'test'
+  ...
+# Subtest: fixed corpus delivers all operations and stays far below ceiling
+ok 11 - fixed corpus delivers all operations and stays far below ceiling
+  ---
+  duration_ms: 10.158643
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 365.343992
