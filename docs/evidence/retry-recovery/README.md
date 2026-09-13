@@ -1,6 +1,6 @@
 # Fixed retry simulation evidence — 2026-09-13
 
-Parameters were frozen in commit 9b 85ad 8 before matrix execution. The model,
+Parameters were frozen in commit `9b85ad8` before matrix execution. The model,
 method and sources are in `labs/retry-recovery/`. No paper artifact was run.
 
 This directory retains deterministic gzip copies of the first dirty-worktree
@@ -15,7 +15,7 @@ Commands from the repository root:
 ```sh
 ./scripts/retry-lab.sh test
 ./scripts/retry-lab.sh run > /tmp/retry.json
-python 3 labs/retry-recovery/export.py /tmp/retry.json /tmp/retry-csv
+python3 labs/retry-recovery/export.py /tmp/retry.json /tmp/retry-csv
 ```
 
 The initial Docker test failed because the host's restrictive file modes made
@@ -64,3 +64,8 @@ Final run: `final-run.json.gz`, code revision `50e8cd0d04bee4d2a05b1bfb2cb189f77
 started `2026-09-13T06:15:18.496763+00:00`, dirty=false, execution_complete=true.
 All 54 semantic run records match both previous matrices exactly. Runtime was
 3.676 seconds; recovery censoring was retained without failing execution.
+
+Independent method/security review recomputed all 54 scenarios, shared arrival hashes,
+180 windows, request/attempt conservation and identical semantic matrices; all 11
+container tests passed. The 1,800-second hard bound covers execution after the
+Docker build, not initial image acquisition.
