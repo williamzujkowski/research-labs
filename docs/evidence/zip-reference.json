@@ -1,0 +1,488 @@
+{
+  "schema_version": 1,
+  "scope": "fixed benign ZIP API pilot; not antivirus, exploitation, or full paper replication",
+  "started_at_utc": "2026-09-13T05:58:33.857495+00:00",
+  "environment": {
+    "python": "3.12.14 (main, Sep  1 2026, 00:10:07) [GCC 14.2.0]",
+    "java": "openjdk version \"21.0.12\" 2026-07-21 LTS\nOpenJDK Runtime Environment Temurin-21.0.12+8 (build 21.0.12+8-LTS)\nOpenJDK 64-Bit Server VM Temurin-21.0.12+8 (build 21.0.12+8-LTS, mixed mode, sharing)\n",
+    "platform": "Linux-7.0.0-31-generic-x86_64-with-glibc2.41",
+    "machine": "x86_64",
+    "image_id": "sha256:e12337d82f07c5e03f5cd0d1510603fb4a20189fe2f032f0f5a1fbcad1118f8e",
+    "source_revision": "11c83ebb3b82bd88502ac967cb8bfa824006c7a5",
+    "source_dirty": "false",
+    "source_sha256": {
+      "ZipProbe.java": "7e6b692adbc890af111860f331fffd241a9322253b71f1bcc7c1129a17c0ec9a",
+      "fixtures.json": "398249e03cf0cf89f803cb3695e480a65a6dbac75894d8f24ba460a398b1699b",
+      "fixtures.py": "1f51dbb708118c23fe0587f8ea0326f79b6a45059b541f547e1556977933d4b2",
+      "probe.py": "bc58dcc14461903af98db2c66859b355c156ce99ff691b38cd476718ba0013bc",
+      "run.py": "b3d849728f288ab7c4415ab9eb405fa1689486bafaad51f3c60f75de4ff35c68"
+    }
+  },
+  "limits": {
+    "timeout_seconds_per_adapter": 10,
+    "entry_ceiling": 20,
+    "decoded_byte_ceiling_per_adapter": 1048576
+  },
+  "fixtures": [
+    {
+      "name": "control",
+      "sha256": "30eca746b9edd4e53546dde5ecbc74650f77d05ee506be1bbb004f815eb77dc1",
+      "size": 128,
+      "runs": {
+        "python-zipinfo": {
+          "exit_code": 0,
+          "stdout": "{\"status\": \"success\", \"entries\": [{\"name\": \"note.txt\", \"sha256\": \"1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9\", \"size\": 14, \"marker\": false}], \"error\": null, \"warnings\": []}\n",
+          "stderr": "",
+          "classification": "success",
+          "observation": {
+            "status": "success",
+            "entries": [
+              {
+                "name": "note.txt",
+                "sha256": "1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9",
+                "size": 14,
+                "marker": false
+              }
+            ],
+            "error": null,
+            "warnings": []
+          }
+        },
+        "java-zipfile": {
+          "exit_code": 0,
+          "stdout": "{\"status\":\"success\",\"entries\":[{\"name\":\"note.txt\",\"sha256\":\"1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9\",\"size\":14,\"marker\":false}],\"error\":null}\n",
+          "stderr": "",
+          "classification": "success",
+          "observation": {
+            "status": "success",
+            "entries": [
+              {
+                "name": "note.txt",
+                "sha256": "1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9",
+                "size": 14,
+                "marker": false
+              }
+            ],
+            "error": null
+          }
+        },
+        "java-stream": {
+          "exit_code": 0,
+          "stdout": "{\"status\":\"success\",\"entries\":[{\"name\":\"note.txt\",\"sha256\":\"1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9\",\"size\":14,\"marker\":false}],\"error\":null}\n",
+          "stderr": "",
+          "classification": "success",
+          "observation": {
+            "status": "success",
+            "entries": [
+              {
+                "name": "note.txt",
+                "sha256": "1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9",
+                "size": 14,
+                "marker": false
+              }
+            ],
+            "error": null
+          }
+        }
+      },
+      "accepted_entry_sequence_disagreement": false,
+      "accepted_marker_decisions": {
+        "python-zipinfo": false,
+        "java-zipfile": false,
+        "java-stream": false
+      }
+    },
+    {
+      "name": "duplicate-marker-first",
+      "sha256": "c9f4e75257edc138c80297abf6c11105ad401a29132987451011608090081178",
+      "size": 230,
+      "runs": {
+        "python-zipinfo": {
+          "exit_code": 0,
+          "stdout": "{\"status\": \"success\", \"entries\": [{\"name\": \"note.txt\", \"sha256\": \"52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b\", \"size\": 10, \"marker\": true}, {\"name\": \"note.txt\", \"sha256\": \"1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9\", \"size\": 14, \"marker\": false}], \"error\": null, \"warnings\": []}\n",
+          "stderr": "",
+          "classification": "success",
+          "observation": {
+            "status": "success",
+            "entries": [
+              {
+                "name": "note.txt",
+                "sha256": "52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b",
+                "size": 10,
+                "marker": true
+              },
+              {
+                "name": "note.txt",
+                "sha256": "1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9",
+                "size": 14,
+                "marker": false
+              }
+            ],
+            "error": null,
+            "warnings": []
+          }
+        },
+        "java-zipfile": {
+          "exit_code": 0,
+          "stdout": "{\"status\":\"success\",\"entries\":[{\"name\":\"note.txt\",\"sha256\":\"52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b\",\"size\":10,\"marker\":true},{\"name\":\"note.txt\",\"sha256\":\"1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9\",\"size\":14,\"marker\":false}],\"error\":null}\n",
+          "stderr": "",
+          "classification": "success",
+          "observation": {
+            "status": "success",
+            "entries": [
+              {
+                "name": "note.txt",
+                "sha256": "52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b",
+                "size": 10,
+                "marker": true
+              },
+              {
+                "name": "note.txt",
+                "sha256": "1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9",
+                "size": 14,
+                "marker": false
+              }
+            ],
+            "error": null
+          }
+        },
+        "java-stream": {
+          "exit_code": 0,
+          "stdout": "{\"status\":\"success\",\"entries\":[{\"name\":\"note.txt\",\"sha256\":\"52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b\",\"size\":10,\"marker\":true},{\"name\":\"note.txt\",\"sha256\":\"1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9\",\"size\":14,\"marker\":false}],\"error\":null}\n",
+          "stderr": "",
+          "classification": "success",
+          "observation": {
+            "status": "success",
+            "entries": [
+              {
+                "name": "note.txt",
+                "sha256": "52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b",
+                "size": 10,
+                "marker": true
+              },
+              {
+                "name": "note.txt",
+                "sha256": "1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9",
+                "size": 14,
+                "marker": false
+              }
+            ],
+            "error": null
+          }
+        }
+      },
+      "accepted_entry_sequence_disagreement": false,
+      "accepted_marker_decisions": {
+        "python-zipinfo": true,
+        "java-zipfile": true,
+        "java-stream": true
+      }
+    },
+    {
+      "name": "duplicate-marker-last",
+      "sha256": "6457e7706819a56f841a668e60fe349f27635d8f3150beb49f4050c4788c8cab",
+      "size": 230,
+      "runs": {
+        "python-zipinfo": {
+          "exit_code": 0,
+          "stdout": "{\"status\": \"success\", \"entries\": [{\"name\": \"note.txt\", \"sha256\": \"1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9\", \"size\": 14, \"marker\": false}, {\"name\": \"note.txt\", \"sha256\": \"52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b\", \"size\": 10, \"marker\": true}], \"error\": null, \"warnings\": []}\n",
+          "stderr": "",
+          "classification": "success",
+          "observation": {
+            "status": "success",
+            "entries": [
+              {
+                "name": "note.txt",
+                "sha256": "1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9",
+                "size": 14,
+                "marker": false
+              },
+              {
+                "name": "note.txt",
+                "sha256": "52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b",
+                "size": 10,
+                "marker": true
+              }
+            ],
+            "error": null,
+            "warnings": []
+          }
+        },
+        "java-zipfile": {
+          "exit_code": 0,
+          "stdout": "{\"status\":\"success\",\"entries\":[{\"name\":\"note.txt\",\"sha256\":\"1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9\",\"size\":14,\"marker\":false},{\"name\":\"note.txt\",\"sha256\":\"52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b\",\"size\":10,\"marker\":true}],\"error\":null}\n",
+          "stderr": "",
+          "classification": "success",
+          "observation": {
+            "status": "success",
+            "entries": [
+              {
+                "name": "note.txt",
+                "sha256": "1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9",
+                "size": 14,
+                "marker": false
+              },
+              {
+                "name": "note.txt",
+                "sha256": "52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b",
+                "size": 10,
+                "marker": true
+              }
+            ],
+            "error": null
+          }
+        },
+        "java-stream": {
+          "exit_code": 0,
+          "stdout": "{\"status\":\"success\",\"entries\":[{\"name\":\"note.txt\",\"sha256\":\"1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9\",\"size\":14,\"marker\":false},{\"name\":\"note.txt\",\"sha256\":\"52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b\",\"size\":10,\"marker\":true}],\"error\":null}\n",
+          "stderr": "",
+          "classification": "success",
+          "observation": {
+            "status": "success",
+            "entries": [
+              {
+                "name": "note.txt",
+                "sha256": "1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9",
+                "size": 14,
+                "marker": false
+              },
+              {
+                "name": "note.txt",
+                "sha256": "52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b",
+                "size": 10,
+                "marker": true
+              }
+            ],
+            "error": null
+          }
+        }
+      },
+      "accepted_entry_sequence_disagreement": false,
+      "accepted_marker_decisions": {
+        "python-zipinfo": true,
+        "java-zipfile": true,
+        "java-stream": true
+      }
+    },
+    {
+      "name": "central-order-reversed",
+      "sha256": "f12bccf3fdd888b1128603a1f794cb4f9d2df3cd64554793e9d488f5a6bcada1",
+      "size": 228,
+      "runs": {
+        "python-zipinfo": {
+          "exit_code": 0,
+          "stdout": "{\"status\": \"success\", \"entries\": [{\"name\": \"second.txt\", \"sha256\": \"52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b\", \"size\": 10, \"marker\": true}, {\"name\": \"first.txt\", \"sha256\": \"b640e840b19d378660b32fb51ae18d67dccb4a8596a29e7bd72c1b2ae5928f41\", \"size\": 6, \"marker\": false}], \"error\": null, \"warnings\": []}\n",
+          "stderr": "",
+          "classification": "success",
+          "observation": {
+            "status": "success",
+            "entries": [
+              {
+                "name": "second.txt",
+                "sha256": "52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b",
+                "size": 10,
+                "marker": true
+              },
+              {
+                "name": "first.txt",
+                "sha256": "b640e840b19d378660b32fb51ae18d67dccb4a8596a29e7bd72c1b2ae5928f41",
+                "size": 6,
+                "marker": false
+              }
+            ],
+            "error": null,
+            "warnings": []
+          }
+        },
+        "java-zipfile": {
+          "exit_code": 0,
+          "stdout": "{\"status\":\"success\",\"entries\":[{\"name\":\"second.txt\",\"sha256\":\"52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b\",\"size\":10,\"marker\":true},{\"name\":\"first.txt\",\"sha256\":\"b640e840b19d378660b32fb51ae18d67dccb4a8596a29e7bd72c1b2ae5928f41\",\"size\":6,\"marker\":false}],\"error\":null}\n",
+          "stderr": "",
+          "classification": "success",
+          "observation": {
+            "status": "success",
+            "entries": [
+              {
+                "name": "second.txt",
+                "sha256": "52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b",
+                "size": 10,
+                "marker": true
+              },
+              {
+                "name": "first.txt",
+                "sha256": "b640e840b19d378660b32fb51ae18d67dccb4a8596a29e7bd72c1b2ae5928f41",
+                "size": 6,
+                "marker": false
+              }
+            ],
+            "error": null
+          }
+        },
+        "java-stream": {
+          "exit_code": 0,
+          "stdout": "{\"status\":\"success\",\"entries\":[{\"name\":\"first.txt\",\"sha256\":\"b640e840b19d378660b32fb51ae18d67dccb4a8596a29e7bd72c1b2ae5928f41\",\"size\":6,\"marker\":false},{\"name\":\"second.txt\",\"sha256\":\"52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b\",\"size\":10,\"marker\":true}],\"error\":null}\n",
+          "stderr": "",
+          "classification": "success",
+          "observation": {
+            "status": "success",
+            "entries": [
+              {
+                "name": "first.txt",
+                "sha256": "b640e840b19d378660b32fb51ae18d67dccb4a8596a29e7bd72c1b2ae5928f41",
+                "size": 6,
+                "marker": false
+              },
+              {
+                "name": "second.txt",
+                "sha256": "52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b",
+                "size": 10,
+                "marker": true
+              }
+            ],
+            "error": null
+          }
+        }
+      },
+      "accepted_entry_sequence_disagreement": true,
+      "accepted_marker_decisions": {
+        "python-zipinfo": true,
+        "java-zipfile": true,
+        "java-stream": true
+      }
+    },
+    {
+      "name": "local-central-name-conflict",
+      "sha256": "5d54d9347be460833dd4259163268ab43fe92e975d2229995d3b4908c45681f4",
+      "size": 126,
+      "runs": {
+        "python-zipinfo": {
+          "exit_code": 2,
+          "stdout": "{\"status\": \"rejected\", \"entries\": [], \"error\": \"BadZipFile: File name in directory 'index.txt' and header b'local.txt' differ.\", \"warnings\": []}\n",
+          "stderr": "",
+          "classification": "rejected",
+          "observation": {
+            "status": "rejected",
+            "entries": [],
+            "error": "BadZipFile: File name in directory 'index.txt' and header b'local.txt' differ.",
+            "warnings": []
+          }
+        },
+        "java-zipfile": {
+          "exit_code": 0,
+          "stdout": "{\"status\":\"success\",\"entries\":[{\"name\":\"index.txt\",\"sha256\":\"52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b\",\"size\":10,\"marker\":true}],\"error\":null}\n",
+          "stderr": "",
+          "classification": "success",
+          "observation": {
+            "status": "success",
+            "entries": [
+              {
+                "name": "index.txt",
+                "sha256": "52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b",
+                "size": 10,
+                "marker": true
+              }
+            ],
+            "error": null
+          }
+        },
+        "java-stream": {
+          "exit_code": 0,
+          "stdout": "{\"status\":\"success\",\"entries\":[{\"name\":\"local.txt\",\"sha256\":\"52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b\",\"size\":10,\"marker\":true}],\"error\":null}\n",
+          "stderr": "",
+          "classification": "success",
+          "observation": {
+            "status": "success",
+            "entries": [
+              {
+                "name": "local.txt",
+                "sha256": "52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b",
+                "size": 10,
+                "marker": true
+              }
+            ],
+            "error": null
+          }
+        }
+      },
+      "accepted_entry_sequence_disagreement": true,
+      "accepted_marker_decisions": {
+        "java-zipfile": true,
+        "java-stream": true
+      }
+    },
+    {
+      "name": "local-entry-absent-from-index",
+      "sha256": "889fb71db665df4c96fa9948f53aae136ca0a20292c63992ab093173e01cc54d",
+      "size": 177,
+      "runs": {
+        "python-zipinfo": {
+          "exit_code": 0,
+          "stdout": "{\"status\": \"success\", \"entries\": [{\"name\": \"note.txt\", \"sha256\": \"1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9\", \"size\": 14, \"marker\": false}], \"error\": null, \"warnings\": []}\n",
+          "stderr": "",
+          "classification": "success",
+          "observation": {
+            "status": "success",
+            "entries": [
+              {
+                "name": "note.txt",
+                "sha256": "1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9",
+                "size": 14,
+                "marker": false
+              }
+            ],
+            "error": null,
+            "warnings": []
+          }
+        },
+        "java-zipfile": {
+          "exit_code": 0,
+          "stdout": "{\"status\":\"success\",\"entries\":[{\"name\":\"note.txt\",\"sha256\":\"1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9\",\"size\":14,\"marker\":false}],\"error\":null}\n",
+          "stderr": "",
+          "classification": "success",
+          "observation": {
+            "status": "success",
+            "entries": [
+              {
+                "name": "note.txt",
+                "sha256": "1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9",
+                "size": 14,
+                "marker": false
+              }
+            ],
+            "error": null
+          }
+        },
+        "java-stream": {
+          "exit_code": 0,
+          "stdout": "{\"status\":\"success\",\"entries\":[{\"name\":\"note.txt\",\"sha256\":\"1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9\",\"size\":14,\"marker\":false},{\"name\":\"extra.txt\",\"sha256\":\"52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b\",\"size\":10,\"marker\":true}],\"error\":null}\n",
+          "stderr": "",
+          "classification": "success",
+          "observation": {
+            "status": "success",
+            "entries": [
+              {
+                "name": "note.txt",
+                "sha256": "1b559f24dc116d561fdbf07b8edd6a6db406931210659e90fffc428d2eef4db9",
+                "size": 14,
+                "marker": false
+              },
+              {
+                "name": "extra.txt",
+                "sha256": "52d3d0b1e2e8cd9845932abec45e2220c2812e0c390fe477aeca0d298b34990b",
+                "size": 10,
+                "marker": true
+              }
+            ],
+            "error": null
+          }
+        }
+      },
+      "accepted_entry_sequence_disagreement": true,
+      "accepted_marker_decisions": {
+        "python-zipinfo": false,
+        "java-zipfile": false,
+        "java-stream": true
+      }
+    }
+  ]
+}
