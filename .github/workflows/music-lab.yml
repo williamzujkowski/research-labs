@@ -1,0 +1,28 @@
+name: Music traces
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  reproduce:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Test fixed traces in pinned container
+        run: ./scripts/music-lab.sh test
+      - name: Retain raw trace observations
+        run: |
+          mkdir -p results
+          ./scripts/music-lab.sh run > results/music.json
+      - name: Upload observations
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: music-observations
+          path: results/music.json
+          if-no-files-found: ignore
