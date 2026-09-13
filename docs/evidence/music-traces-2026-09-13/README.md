@@ -1,11 +1,11 @@
 # Music trace feasibility record — September 13, 2026
 
 Executed from clean implementation commit
-`d682d49` with Docker on Linux amd64. Commands from the repository root:
+`794c090` with Docker on Linux amd64. Commands from the repository root:
 
 ```sh
-./scripts/music-lab.sh run > /tmp/music-clean-observations.json
-./scripts/music-lab.sh test > /tmp/music-clean-tests.txt
+./scripts/music-lab.sh run > /tmp/music-reviewed-observations.json
+./scripts/music-lab.sh test > /tmp/music-reviewed-tests.txt
 npm audit --omit=dev --prefix labs/music-traces --json
 ```
 
@@ -21,9 +21,10 @@ row grammar, yet its `bd` event moved from the drums lane to the bass lane. Thes
 are four deterministic, three-operation observations, not universal guarantees.
 Raw update bytes and causal-delivery records are included in the JSON.
 
-Eleven tests passed, including replay into a fresh document, causal-predecessor
+Thirteen tests passed, including replay into a fresh document, causal-predecessor
 rejection before mutation, duplicate-update delivery, both controls, separate score
-syntax and lane-assignment checks, and a different receiver traversal order.
+syntax and lane-assignment checks, a different receiver traversal order, exact-control gating against agreeing empty
+results, missing-corpus detection and preservation of historical non-reproduction.
 
 Feasibility decision: the historical trace reproduces. The music example provides
 an application-invariant question beyond syntax, but a production editor comparison,
@@ -34,5 +35,6 @@ provenance, license exceptions, development corrections and further limits.
 
 No paid services, live audio, user documents, random search or upstream benchmark
 campaign was used. Implementation and the fixed run are bounded separately from
-future editorial work. Security and accuracy review by another agent is pending;
-this author's tests and source inspection do not substitute for that review.
+future editorial work. Root independently reviewed code, method and security. Its requested additions
+(run UTC timestamp and exact expected control arrays) were implemented before
+this retained run. Tests and consensus do not substitute for publication review.

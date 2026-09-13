@@ -1,15 +1,17 @@
 {
   "schema": "music-traces-v1",
+  "started_at_utc": "2026-09-13T06:13:30.813Z",
+  "evidence_problems": [],
   "environment": {
     "node": "v22.23.2",
     "yjs": "13.6.8",
     "platform": "linux",
     "architecture": "x64",
-    "image_id": "sha256:f1993b967bad8802f0062d3babf859097e0dd88f51d1bd61c4312a3903364650",
-    "revision": "d682d4920bc2f50b74e10839d8190bdcd3d658e2",
+    "image_id": "sha256:9b06a8e28c8699789666d1b8a92fbaf78cc04ab1e7832cbc619217eab8f50680",
+    "revision": "794c090910cd74fef58c479f9a9db6ba4a2e4e58",
     "dirty": "false",
     "package_lock_sha256": "fc60f94e35fe9a6d6b235ac67a58cc468f2a1466eb0b3edf5a0b388309bf9540",
-    "source_sha256": "b6da5407619a09d2d1b3d72fcf5750f3a73d892579af84f08cc78e495ef01d1c"
+    "source_sha256": "9ca7a3d3e12b93b2d65ea9da438f23ece636b2ae6dd17526600cafd157162805"
   },
   "bounds": {
     "fixed_traces": 4,
@@ -18,7 +20,7 @@
     "container_memory_bytes": 536870912,
     "container_timeout_seconds": 900
   },
-  "elapsed_ms": 36.541852000000006,
+  "elapsed_ms": 29.816344000000015,
   "operation_count": 12,
   "traces": [
     {
