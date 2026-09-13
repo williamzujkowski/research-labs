@@ -1,0 +1,26 @@
+{
+  "control": {
+    "sha256": "30eca746b9edd4e53546dde5ecbc74650f77d05ee506be1bbb004f815eb77dc1",
+    "size": 128
+  },
+  "duplicate-marker-first": {
+    "sha256": "c9f4e75257edc138c80297abf6c11105ad401a29132987451011608090081178",
+    "size": 230
+  },
+  "duplicate-marker-last": {
+    "sha256": "6457e7706819a56f841a668e60fe349f27635d8f3150beb49f4050c4788c8cab",
+    "size": 230
+  },
+  "central-order-reversed": {
+    "sha256": "f12bccf3fdd888b1128603a1f794cb4f9d2df3cd64554793e9d488f5a6bcada1",
+    "size": 228
+  },
+  "local-central-name-conflict": {
+    "sha256": "5d54d9347be460833dd4259163268ab43fe92e975d2229995d3b4908c45681f4",
+    "size": 126
+  },
+  "local-entry-absent-from-index": {
+    "sha256": "889fb71db665df4c96fa9948f53aae136ca0a20292c63992ab093173e01cc54d",
+    "size": 177
+  }
+}

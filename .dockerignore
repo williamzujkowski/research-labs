@@ -1,0 +1,7 @@
+*
+!labs/
+!labs/**
+!tests/
+!tests/**
+**/__pycache__
+**/*.class
