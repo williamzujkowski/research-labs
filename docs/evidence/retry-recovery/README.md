@@ -49,3 +49,7 @@ No policy winner, deployed-service finding, Svalinn replication, or publication
 approval is claimed. Keep this as an artifact; a post needs a defensible question
 and must explain why this frozen recovery metric fails its controls. Further
 experiments require a separately recorded plan, not silent tuning of this one.
+
+Clean code revision: `c2b2a349aa9ae6eb1a311876d7d3a08a39a7ad28`, dirty=false.
+The clean run reproduced every semantic record in the first run exactly.
+All 54 runs satisfy original-request and server-attempt conservation equations.
