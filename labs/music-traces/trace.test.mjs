@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import * as Y from 'yjs';
-import { Trace, backward, sequential, disjoint, parseScore, contiguous, runAll } from './trace.mjs';
+import { Trace, backward, sequential, disjoint, parseScore, contiguous, runAll, evidenceProblems } from './trace.mjs';
 
 test('historical three-ID backward trace produces axb on every replica', () => {
   const trace = backward('historical');
@@ -68,4 +68,18 @@ test('fixed corpus delivers all operations and stays far below ceiling', () => {
     assert.equal(trace.measures.all_operations_delivered, true);
     for (const op of trace.operations) assert.ok(op.update.bytes < 1024);
   }
+});
+
+test('evidence gate rejects agreeing empty controls and omitted traces', () => {
+  const traces = runAll();
+  assert.deepEqual(evidenceProblems(traces), []);
+  for (const replica of traces[1].final) replica.values = [];
+  assert.ok(evidenceProblems(traces).some(problem => problem.includes('control output')));
+  assert.ok(evidenceProblems(runAll().slice(1)).some(problem => problem.includes('missing')));
+});
+test('evidence gate preserves non-reproduction of historical interleaving', () => {
+  const traces = runAll();
+  for (const replica of traces[0].final) replica.values = ['a', 'b', 'x'];
+  traces[0].measures.specified_run_contiguous = true;
+  assert.deepEqual(evidenceProblems(traces), []);
 });

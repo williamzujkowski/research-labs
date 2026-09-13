@@ -120,3 +120,17 @@ export function runAll() {
   return [backward('appendix-a-a9'), sequential(), disjoint(),
     backward('inert-score-lanes', ['drums:\n', 'bd\n', 'bass:\nc2\n'], true)];
 }
+
+export function evidenceProblems(traces) {
+  const problems = [];
+  const expectedNames = ['appendix-a-a9', 'sequential-control', 'disjoint-control', 'inert-score-lanes'];
+  if (JSON.stringify(traces.map(trace => trace.name)) !== JSON.stringify(expectedNames)) problems.push('missing or reordered corpus');
+  for (const trace of traces) {
+    if (!trace.measures.replica_equality || !trace.measures.all_operations_delivered) problems.push(`${trace.name}: incomplete or divergent result`);
+    const expected = {'sequential-control': ['a', 'b', 'x'], 'disjoint-control': ['a', '|', 'x']}[trace.name];
+    if (expected && (trace.final.length !== 3 || trace.final.some(replica => JSON.stringify(replica.values) !== JSON.stringify(expected)))) {
+      problems.push(`${trace.name}: control output differs from expected array`);
+    }
+  }
+  return problems;
+}

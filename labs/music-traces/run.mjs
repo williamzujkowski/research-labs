@@ -1,11 +1,14 @@
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
-import { runAll, sha256 } from './trace.mjs';
+import { runAll, sha256, evidenceProblems } from './trace.mjs';
 const require = createRequire(import.meta.url);
+const startedAt = new Date().toISOString();
 const start = performance.now();
 const traces = runAll();
 const result = {
   schema: 'music-traces-v1',
+  started_at_utc: startedAt,
+  evidence_problems: evidenceProblems(traces),
   environment: {node: process.version, yjs: require('yjs/package.json').version,
     platform: process.platform, architecture: process.arch,
     image_id: process.env.LAB_IMAGE_ID ?? null,
@@ -19,4 +22,4 @@ const result = {
   traces,
 };
 console.log(JSON.stringify(result, null, 2));
-if (traces.some(trace => !trace.measures.replica_equality || !trace.measures.all_operations_delivered)) process.exitCode = 1;
+if (result.evidence_problems.length) process.exitCode = 1;
