@@ -5,3 +5,4 @@
 !tests/**
 **/__pycache__
 **/*.class
+**/node_modules
