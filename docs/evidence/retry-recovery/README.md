@@ -59,3 +59,8 @@ start timestamps, and a hard 1,800-second runtime timeout. Eleven container
 tests now cover incomplete-matrix/cap rejection and permit complete scientifically
 censored controls. The final clean run is retained separately below; prior
 observations remain available rather than being overwritten.
+
+Final run: `final-run.json.gz`, code revision `50e8cd0d04bee4d2a05b1bfb2cb189f776dec338`,
+started `2026-09-13T06:15:18.496763+00:00`, dirty=false, execution_complete=true.
+All 54 semantic run records match both previous matrices exactly. Runtime was
+3.676 seconds; recovery censoring was retained without failing execution.
