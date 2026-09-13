@@ -1,0 +1,88 @@
+TAP version 13
+# Subtest: historical three-ID backward trace produces axb on every replica
+ok 1 - historical three-ID backward trace produces axb on every replica
+  ---
+  duration_ms: 25.455289
+  type: 'test'
+  ...
+# Subtest: receiver iteration order does not change this fixed trace
+ok 2 - receiver iteration order does not change this fixed trace
+  ---
+  duration_ms: 8.391349
+  type: 'test'
+  ...
+# Subtest: recorded raw updates replay to the same state in a fresh replica
+ok 3 - recorded raw updates replay to the same state in a fresh replica
+  ---
+  duration_ms: 15.58031
+  type: 'test'
+  ...
+# Subtest: invalid causal delivery fails before applying a dependent update
+ok 4 - invalid causal delivery fails before applying a dependent update
+  ---
+  duration_ms: 3.720853
+  type: 'test'
+  ...
+# Subtest: duplicate causal delivery is harmless in the tested schedule
+ok 5 - duplicate causal delivery is harmless in the tested schedule
+  ---
+  duration_ms: 1.685558
+  type: 'test'
+  ...
+# Subtest: sequential control preserves insertion run
+ok 6 - sequential control preserves insertion run
+  ---
+  duration_ms: 2.309173
+  type: 'test'
+  ...
+# Subtest: concurrent disjoint control preserves both ends
+ok 7 - concurrent disjoint control preserves both ends
+  ---
+  duration_ms: 2.632533
+  type: 'test'
+  ...
+# Subtest: score converges and remains valid while bd changes lane
+ok 8 - score converges and remains valid while bd changes lane
+  ---
+  duration_ms: 2.894313
+  type: 'test'
+  ...
+# Subtest: score grammar rejects missing headers and executable-looking text
+ok 9 - score grammar rejects missing headers and executable-looking text
+  ---
+  duration_ms: 0.90908
+  type: 'test'
+  ...
+# Subtest: contiguity check rejects separated or reversed unique runs
+ok 10 - contiguity check rejects separated or reversed unique runs
+  ---
+  duration_ms: 0.691896
+  type: 'test'
+  ...
+# Subtest: fixed corpus delivers all operations and stays far below ceiling
+ok 11 - fixed corpus delivers all operations and stays far below ceiling
+  ---
+  duration_ms: 8.11342
+  type: 'test'
+  ...
+# Subtest: evidence gate rejects agreeing empty controls and omitted traces
+ok 12 - evidence gate rejects agreeing empty controls and omitted traces
+  ---
+  duration_ms: 16.393978
+  type: 'test'
+  ...
+# Subtest: evidence gate preserves non-reproduction of historical interleaving
+ok 13 - evidence gate preserves non-reproduction of historical interleaving
+  ---
+  duration_ms: 7.212119
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 322.854517

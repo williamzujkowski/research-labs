@@ -6,6 +6,13 @@ Each lab asks a bounded question, retains its inputs and raw observations, and s
 The first lab compares ZIP readers using six tiny, original, harmless archives.
 It is a paper-inspired API experiment, not a full ZipDiff replication or a security scanner.
 
+## Available labs
+
+| Lab | Question | Run instructions |
+| --- | --- | --- |
+| ZIP readers | Do indexed and streaming APIs observe the same entries? | [ZIP pilot](labs/zip-differentials/README.md) |
+| Collaborative score | Can equal replicas keep valid text but change lane assignment? | [Historical Yjs traces](labs/music-traces/README.md) |
+
 ## Try the ZIP lab
 
 Install Git and Docker Engine or Docker Desktop with Linux-container support. From a POSIX shell

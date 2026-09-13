@@ -1,0 +1,39 @@
+{
+  "inspected_on": "2026-09-13",
+  "author_artifact_commit": "31e74fea67f23add13a5d10f781c0d78edcd14da",
+  "paper": "https://arxiv.org/html/2305.00583v3",
+  "section": "Appendix A-A9",
+  "files": [
+    {
+      "path": "yjs-interleave/index.js",
+      "url": "https://raw.githubusercontent.com/mweidner037/fugue/31e74fea67f23add13a5d10f781c0d78edcd14da/yjs-interleave/index.js",
+      "sha256": "a5a97999ef62c23fcc0e23db01f6eb83b69db0992f294e0072f5e83f34fd6580",
+      "bytes": 656
+    },
+    {
+      "path": "yjs-interleave/package.json",
+      "url": "https://raw.githubusercontent.com/mweidner037/fugue/31e74fea67f23add13a5d10f781c0d78edcd14da/yjs-interleave/package.json",
+      "sha256": "65adafe720faa59698e2c5c56a76a7c6ba4d7c08ae37e8e33cb92626e0e3d2f8",
+      "bytes": 207
+    },
+    {
+      "path": "package-lock.json",
+      "url": "https://raw.githubusercontent.com/mweidner037/fugue/31e74fea67f23add13a5d10f781c0d78edcd14da/package-lock.json",
+      "sha256": "9bdf348d2d5fc34d34075b57de1a77797c4405590c4f248003cf8984d32878d0",
+      "bytes": 21039
+    },
+    {
+      "path": "LICENSE",
+      "url": "https://raw.githubusercontent.com/mweidner037/fugue/31e74fea67f23add13a5d10f781c0d78edcd14da/LICENSE",
+      "sha256": "7474228974439402931c288b69099901bf93e860837f3d7b5e5836f9a89e011c",
+      "bytes": 1221
+    },
+    {
+      "path": "README.md",
+      "url": "https://raw.githubusercontent.com/mweidner037/fugue/31e74fea67f23add13a5d10f781c0d78edcd14da/README.md",
+      "sha256": "404418e2ea5e1d6bbee91dc9225f65bcd95f87fc0e816251cc20d2b7a145ab6f",
+      "bytes": 2179
+    }
+  ],
+  "redistribution": "Only upstream license retained verbatim; original harness follows attributed schedule. No excluded implementation or editing trace copied."
+}

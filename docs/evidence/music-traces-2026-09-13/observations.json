@@ -1,0 +1,812 @@
+{
+  "schema": "music-traces-v1",
+  "started_at_utc": "2026-09-13T06:13:30.813Z",
+  "evidence_problems": [],
+  "environment": {
+    "node": "v22.23.2",
+    "yjs": "13.6.8",
+    "platform": "linux",
+    "architecture": "x64",
+    "image_id": "sha256:9b06a8e28c8699789666d1b8a92fbaf78cc04ab1e7832cbc619217eab8f50680",
+    "revision": "794c090910cd74fef58c479f9a9db6ba4a2e4e58",
+    "dirty": "false",
+    "package_lock_sha256": "fc60f94e35fe9a6d6b235ac67a58cc468f2a1466eb0b3edf5a0b388309bf9540",
+    "source_sha256": "9ca7a3d3e12b93b2d65ea9da438f23ece636b2ae6dd17526600cafd157162805"
+  },
+  "bounds": {
+    "fixed_traces": 4,
+    "random_seeds": 0,
+    "max_operations_per_trace": 10000,
+    "container_memory_bytes": 536870912,
+    "container_timeout_seconds": 900
+  },
+  "elapsed_ms": 29.816344000000015,
+  "operation_count": 12,
+  "traces": [
+    {
+      "name": "appendix-a-a9",
+      "operations": [
+        {
+          "id": "op1",
+          "replica": 3,
+          "index": 0,
+          "value": "b",
+          "dependencies": [],
+          "update": {
+            "base64": "AAABAwAAAQgCAAABAQABAQEBAHcBYgA=",
+            "bytes": 23,
+            "sha256": "d88105f30aa0a4ee2a3049ed2b5bbdf1d08c0f58a75200bd37de6a203efd3afa"
+          }
+        },
+        {
+          "id": "op2",
+          "replica": 1,
+          "index": 0,
+          "value": "a",
+          "dependencies": [
+            "op1"
+          ],
+          "update": {
+            "base64": "AAACAQMAAQABSAEAAAABAQEBAHcBYQA=",
+            "bytes": 23,
+            "sha256": "a512d52783f2585e1fd9fdcee143098511931b51d87cf538f90dbcd33d573f47"
+          }
+        },
+        {
+          "id": "op3",
+          "replica": 2,
+          "index": 0,
+          "value": "x",
+          "dependencies": [],
+          "update": {
+            "base64": "AAABAgAAAQgCAAABAQABAQEBAHcBeAA=",
+            "bytes": 23,
+            "sha256": "f7fec098e89b153f906706c6ce032b2d1541c4897f8be47cb6318bb0a4710b53"
+          }
+        }
+      ],
+      "events": [
+        {
+          "type": "insert",
+          "operation": "op1",
+          "replica": 3,
+          "state": [
+            "b"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op1",
+          "to": 1,
+          "state": [
+            "b"
+          ]
+        },
+        {
+          "type": "insert",
+          "operation": "op2",
+          "replica": 1,
+          "state": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "type": "insert",
+          "operation": "op3",
+          "replica": 2,
+          "state": [
+            "x"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op3",
+          "to": 1,
+          "state": [
+            "a",
+            "x",
+            "b"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op1",
+          "to": 2,
+          "state": [
+            "x",
+            "b"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op2",
+          "to": 2,
+          "state": [
+            "a",
+            "x",
+            "b"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op2",
+          "to": 3,
+          "state": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op3",
+          "to": 3,
+          "state": [
+            "a",
+            "x",
+            "b"
+          ]
+        }
+      ],
+      "final": [
+        {
+          "replica": 1,
+          "values": [
+            "a",
+            "x",
+            "b"
+          ],
+          "text": "axb",
+          "seen": [
+            "op1",
+            "op2",
+            "op3"
+          ],
+          "encoded_state_bytes": 41
+        },
+        {
+          "replica": 2,
+          "values": [
+            "a",
+            "x",
+            "b"
+          ],
+          "text": "axb",
+          "seen": [
+            "op1",
+            "op2",
+            "op3"
+          ],
+          "encoded_state_bytes": 41
+        },
+        {
+          "replica": 3,
+          "values": [
+            "a",
+            "x",
+            "b"
+          ],
+          "text": "axb",
+          "seen": [
+            "op1",
+            "op2",
+            "op3"
+          ],
+          "encoded_state_bytes": 41
+        }
+      ],
+      "measures": {
+        "replica_equality": true,
+        "all_operations_delivered": true,
+        "specified_run_contiguous": false,
+        "syntax": {
+          "applicable": false,
+          "reason": "letter/control trace, not a score"
+        }
+      },
+      "local_before_merge": [
+        {
+          "replica": 1,
+          "values": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "replica": 2,
+          "values": [
+            "x"
+          ]
+        },
+        {
+          "replica": 3,
+          "values": [
+            "b"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sequential-control",
+      "operations": [
+        {
+          "id": "op1",
+          "replica": 3,
+          "index": 0,
+          "value": "b",
+          "dependencies": [],
+          "update": {
+            "base64": "AAABAwAAAQgCAAABAQABAQEBAHcBYgA=",
+            "bytes": 23,
+            "sha256": "d88105f30aa0a4ee2a3049ed2b5bbdf1d08c0f58a75200bd37de6a203efd3afa"
+          }
+        },
+        {
+          "id": "op2",
+          "replica": 1,
+          "index": 0,
+          "value": "a",
+          "dependencies": [
+            "op1"
+          ],
+          "update": {
+            "base64": "AAACAQMAAQABSAEAAAABAQEBAHcBYQA=",
+            "bytes": 23,
+            "sha256": "a512d52783f2585e1fd9fdcee143098511931b51d87cf538f90dbcd33d573f47"
+          }
+        },
+        {
+          "id": "op3",
+          "replica": 2,
+          "index": 2,
+          "value": "x",
+          "dependencies": [
+            "op1",
+            "op2"
+          ],
+          "update": {
+            "base64": "AAACAgMBAAABiAEAAAABAQEBAHcBeAA=",
+            "bytes": 23,
+            "sha256": "6dab5dd36af4922385d021c79a4c706e47dc2fe1b3904a325bc02982d2a54f7c"
+          }
+        }
+      ],
+      "events": [
+        {
+          "type": "insert",
+          "operation": "op1",
+          "replica": 3,
+          "state": [
+            "b"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op1",
+          "to": 1,
+          "state": [
+            "b"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op1",
+          "to": 2,
+          "state": [
+            "b"
+          ]
+        },
+        {
+          "type": "insert",
+          "operation": "op2",
+          "replica": 1,
+          "state": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op2",
+          "to": 2,
+          "state": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op2",
+          "to": 3,
+          "state": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "type": "insert",
+          "operation": "op3",
+          "replica": 2,
+          "state": [
+            "a",
+            "b",
+            "x"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op3",
+          "to": 1,
+          "state": [
+            "a",
+            "b",
+            "x"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op3",
+          "to": 3,
+          "state": [
+            "a",
+            "b",
+            "x"
+          ]
+        }
+      ],
+      "final": [
+        {
+          "replica": 1,
+          "values": [
+            "a",
+            "b",
+            "x"
+          ],
+          "text": "abx",
+          "seen": [
+            "op1",
+            "op2",
+            "op3"
+          ],
+          "encoded_state_bytes": 44
+        },
+        {
+          "replica": 2,
+          "values": [
+            "a",
+            "b",
+            "x"
+          ],
+          "text": "abx",
+          "seen": [
+            "op1",
+            "op2",
+            "op3"
+          ],
+          "encoded_state_bytes": 44
+        },
+        {
+          "replica": 3,
+          "values": [
+            "a",
+            "b",
+            "x"
+          ],
+          "text": "abx",
+          "seen": [
+            "op1",
+            "op2",
+            "op3"
+          ],
+          "encoded_state_bytes": 44
+        }
+      ],
+      "measures": {
+        "replica_equality": true,
+        "all_operations_delivered": true,
+        "specified_run_contiguous": true,
+        "syntax": {
+          "applicable": false,
+          "reason": "letter/control trace, not a score"
+        }
+      }
+    },
+    {
+      "name": "disjoint-control",
+      "operations": [
+        {
+          "id": "op1",
+          "replica": 3,
+          "index": 0,
+          "value": "|",
+          "dependencies": [],
+          "update": {
+            "base64": "AAABAwAAAQgCAAABAQABAQEBAHcBfAA=",
+            "bytes": 23,
+            "sha256": "6802eb5b810bf31b63ac0ab6e655fe4a8c50a08d1881287b90b789d2942c1812"
+          }
+        },
+        {
+          "id": "op2",
+          "replica": 1,
+          "index": 0,
+          "value": "a",
+          "dependencies": [
+            "op1"
+          ],
+          "update": {
+            "base64": "AAACAQMAAQABSAEAAAABAQEBAHcBYQA=",
+            "bytes": 23,
+            "sha256": "a512d52783f2585e1fd9fdcee143098511931b51d87cf538f90dbcd33d573f47"
+          }
+        },
+        {
+          "id": "op3",
+          "replica": 2,
+          "index": 1,
+          "value": "x",
+          "dependencies": [
+            "op1"
+          ],
+          "update": {
+            "base64": "AAACAgMBAAABiAEAAAABAQEBAHcBeAA=",
+            "bytes": 23,
+            "sha256": "6dab5dd36af4922385d021c79a4c706e47dc2fe1b3904a325bc02982d2a54f7c"
+          }
+        }
+      ],
+      "events": [
+        {
+          "type": "insert",
+          "operation": "op1",
+          "replica": 3,
+          "state": [
+            "|"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op1",
+          "to": 1,
+          "state": [
+            "|"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op1",
+          "to": 2,
+          "state": [
+            "|"
+          ]
+        },
+        {
+          "type": "insert",
+          "operation": "op2",
+          "replica": 1,
+          "state": [
+            "a",
+            "|"
+          ]
+        },
+        {
+          "type": "insert",
+          "operation": "op3",
+          "replica": 2,
+          "state": [
+            "|",
+            "x"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op3",
+          "to": 1,
+          "state": [
+            "a",
+            "|",
+            "x"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op2",
+          "to": 2,
+          "state": [
+            "a",
+            "|",
+            "x"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op2",
+          "to": 3,
+          "state": [
+            "a",
+            "|"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op3",
+          "to": 3,
+          "state": [
+            "a",
+            "|",
+            "x"
+          ]
+        }
+      ],
+      "final": [
+        {
+          "replica": 1,
+          "values": [
+            "a",
+            "|",
+            "x"
+          ],
+          "text": "a|x",
+          "seen": [
+            "op1",
+            "op2",
+            "op3"
+          ],
+          "encoded_state_bytes": 44
+        },
+        {
+          "replica": 2,
+          "values": [
+            "a",
+            "|",
+            "x"
+          ],
+          "text": "a|x",
+          "seen": [
+            "op1",
+            "op2",
+            "op3"
+          ],
+          "encoded_state_bytes": 44
+        },
+        {
+          "replica": 3,
+          "values": [
+            "a",
+            "|",
+            "x"
+          ],
+          "text": "a|x",
+          "seen": [
+            "op1",
+            "op2",
+            "op3"
+          ],
+          "encoded_state_bytes": 44
+        }
+      ],
+      "measures": {
+        "replica_equality": true,
+        "all_operations_delivered": true,
+        "specified_run_contiguous": true,
+        "syntax": {
+          "applicable": false,
+          "reason": "letter/control trace, not a score"
+        }
+      }
+    },
+    {
+      "name": "inert-score-lanes",
+      "operations": [
+        {
+          "id": "op1",
+          "replica": 3,
+          "index": 0,
+          "value": "bd\n",
+          "dependencies": [],
+          "update": {
+            "base64": "AAABAwAAAQgCAAABAQABAQEBAHcDYmQKAA==",
+            "bytes": 25,
+            "sha256": "f4886d0f6b6a7974fcc53fac2d86d2fa0e0e88e681f9e2129f0f815369cf09a9"
+          }
+        },
+        {
+          "id": "op2",
+          "replica": 1,
+          "index": 0,
+          "value": "drums:\n",
+          "dependencies": [
+            "op1"
+          ],
+          "update": {
+            "base64": "AAACAQMAAQABSAEAAAABAQEBAHcHZHJ1bXM6CgA=",
+            "bytes": 29,
+            "sha256": "b21e993f5b057fb69b6ae2ecdaacd0e01df90c0cf07f32847b3ea222413d52d3"
+          }
+        },
+        {
+          "id": "op3",
+          "replica": 2,
+          "index": 0,
+          "value": "bass:\nc2\n",
+          "dependencies": [],
+          "update": {
+            "base64": "AAABAgAAAQgCAAABAQABAQEBAHcJYmFzczoKYzIKAA==",
+            "bytes": 31,
+            "sha256": "dae7c753777f6eed39eb639746683709cc70e56264c94c36aa2cd0ed0ce2f33a"
+          }
+        }
+      ],
+      "events": [
+        {
+          "type": "insert",
+          "operation": "op1",
+          "replica": 3,
+          "state": [
+            "bd\n"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op1",
+          "to": 1,
+          "state": [
+            "bd\n"
+          ]
+        },
+        {
+          "type": "insert",
+          "operation": "op2",
+          "replica": 1,
+          "state": [
+            "drums:\n",
+            "bd\n"
+          ]
+        },
+        {
+          "type": "insert",
+          "operation": "op3",
+          "replica": 2,
+          "state": [
+            "bass:\nc2\n"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op3",
+          "to": 1,
+          "state": [
+            "drums:\n",
+            "bass:\nc2\n",
+            "bd\n"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op1",
+          "to": 2,
+          "state": [
+            "bass:\nc2\n",
+            "bd\n"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op2",
+          "to": 2,
+          "state": [
+            "drums:\n",
+            "bass:\nc2\n",
+            "bd\n"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op2",
+          "to": 3,
+          "state": [
+            "drums:\n",
+            "bd\n"
+          ]
+        },
+        {
+          "type": "deliver",
+          "operation": "op3",
+          "to": 3,
+          "state": [
+            "drums:\n",
+            "bass:\nc2\n",
+            "bd\n"
+          ]
+        }
+      ],
+      "final": [
+        {
+          "replica": 1,
+          "values": [
+            "drums:\n",
+            "bass:\nc2\n",
+            "bd\n"
+          ],
+          "text": "drums:\nbass:\nc2\nbd\n",
+          "seen": [
+            "op1",
+            "op2",
+            "op3"
+          ],
+          "encoded_state_bytes": 57
+        },
+        {
+          "replica": 2,
+          "values": [
+            "drums:\n",
+            "bass:\nc2\n",
+            "bd\n"
+          ],
+          "text": "drums:\nbass:\nc2\nbd\n",
+          "seen": [
+            "op1",
+            "op2",
+            "op3"
+          ],
+          "encoded_state_bytes": 57
+        },
+        {
+          "replica": 3,
+          "values": [
+            "drums:\n",
+            "bass:\nc2\n",
+            "bd\n"
+          ],
+          "text": "drums:\nbass:\nc2\nbd\n",
+          "seen": [
+            "op1",
+            "op2",
+            "op3"
+          ],
+          "encoded_state_bytes": 57
+        }
+      ],
+      "measures": {
+        "replica_equality": true,
+        "all_operations_delivered": true,
+        "specified_run_contiguous": false,
+        "syntax": {
+          "applicable": true,
+          "valid": true,
+          "assignments": [
+            {
+              "lane": "bass",
+              "event": "c2"
+            },
+            {
+              "lane": "bass",
+              "event": "bd"
+            }
+          ]
+        }
+      },
+      "local_before_merge": [
+        {
+          "replica": 1,
+          "values": [
+            "drums:\n",
+            "bd\n"
+          ]
+        },
+        {
+          "replica": 2,
+          "values": [
+            "bass:\nc2\n"
+          ]
+        },
+        {
+          "replica": 3,
+          "values": [
+            "bd\n"
+          ]
+        }
+      ]
+    }
+  ]
+}

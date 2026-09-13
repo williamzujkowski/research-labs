@@ -1,0 +1,18 @@
+{
+  "name": "research-labs-music-traces",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test trace.test.mjs",
+    "start": "node run.mjs"
+  },
+  "dependencies": {
+    "yjs": "13.6.8"
+  },
+  "overrides": {
+    "lib0": "0.2.87",
+    "isomorphic.js": "0.2.5"
+  }
+}
