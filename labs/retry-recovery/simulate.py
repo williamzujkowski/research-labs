@@ -12,6 +12,7 @@ import random
 import sys
 import time
 from collections import Counter, deque
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -196,11 +197,21 @@ def simulate(config, rate, seed, fault, policy, arrival_override=None):
             'timeline_csv': out.getvalue()}
 
 
+def completion_status(result):
+    """Execution completeness is separate from scientific recovery censoring."""
+    c = result["config"]
+    expected = len(c["seeds"]) * len(c["arrival_rates_per_second"]) * len(c["fault_modes"]) * len(c["policies"])
+    complete = (len(result["runs"]) == expected and not result.get("stop_reason")
+                and all(run["stop_reason"] == "observation_cutoff" for run in result["runs"]))
+    return 0 if complete else 2
+
+
 def main():
     started = time.monotonic()
     raw = (ROOT / 'config.json').read_bytes()
     config = json.loads(raw)
     result = {'kind': 'synthetic-discrete-event-simulation', 'config': config,
+              'started_at_utc': datetime.now(timezone.utc).isoformat(),
               'config_sha256': hashlib.sha256(raw).hexdigest(),
               'environment': {'python': platform.python_version(), 'platform': platform.platform(),
                               'image_id': os.getenv('LAB_IMAGE_ID', 'unrecorded'),
@@ -213,9 +224,12 @@ def main():
             break
         result['runs'].append(simulate(config, rate, seed, fault, policy))
     result['elapsed_wall_seconds'] = time.monotonic() - started
+    status = completion_status(result)
+    result['execution_complete'] = status == 0
     json.dump(result, sys.stdout, indent=2)
     print()
+    return status
 
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())

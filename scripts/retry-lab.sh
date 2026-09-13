@@ -16,4 +16,4 @@ docker run --rm --platform linux/amd64 --network none --read-only \
     --cpus 1 --memory 512m --memory-swap 512m --pids-limit 32 \
     --ulimit nofile=64:64 --ulimit core=0:0 --ulimit cpu=1800:1800 \
     -e "LAB_IMAGE_ID=$image_id" -e "LAB_REVISION=$revision" -e "LAB_DIRTY=$dirty" \
-    "$image_id" "$@"
+    "$image_id" timeout --signal=KILL 1800 "$@"

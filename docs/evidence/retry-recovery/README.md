@@ -53,3 +53,9 @@ experiments require a separately recorded plan, not silent tuning of this one.
 Clean code revision: `c2b2a349aa9ae6eb1a311876d7d3a08a39a7ad28`, dirty=false.
 The clean run reproduced every semantic record in the first run exactly.
 All 54 runs satisfy original-request and server-attempt conservation equations.
+
+Independent release review added an explicit matrix-completion exit gate, UTC
+start timestamps, and a hard 1,800-second runtime timeout. Eleven container
+tests now cover incomplete-matrix/cap rejection and permit complete scientifically
+censored controls. The final clean run is retained separately below; prior
+observations remain available rather than being overwritten.

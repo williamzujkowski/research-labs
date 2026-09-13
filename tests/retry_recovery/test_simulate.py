@@ -74,6 +74,18 @@ class SimulationTests(unittest.TestCase):
             self.assertEqual(totals['admitted_attempts'], totals['completed_attempts'] + run['unfinished_server_work'])
             self.assertEqual(totals['attempts'], totals['admitted_attempts'] + totals.get('rejected_attempts', 0))
 
+    def test_completion_gate_rejects_partial_matrix_and_execution_caps(self):
+        case = {'stop_reason': 'observation_cutoff', 'recovery': {'censored': True}}
+        result = {'config': BASE, 'runs': [dict(case) for _ in range(54)]}
+        self.assertEqual(sim.completion_status(result), 0)
+        result['runs'].pop()
+        self.assertEqual(sim.completion_status(result), 2)
+        result['runs'].append(dict(case, stop_reason='attempt_cap'))
+        self.assertEqual(sim.completion_status(result), 2)
+        result['runs'][-1] = dict(case)
+        result['stop_reason'] = 'wall_clock_budget'
+        self.assertEqual(sim.completion_status(result), 2)
+
     def test_recovery_requires_ten_consecutive_windows(self):
         windows = [{'window_start': n, 'successes': 10} for n in range(100)]
         windows[85]['successes'] = 9

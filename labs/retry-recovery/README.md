@@ -15,7 +15,7 @@ python3 labs/retry-recovery/export.py results/retry/observations.json results/re
 
 Only the build fetches a digest-pinned Python base; runtime has no network or host
 mounts, runs as UID 65532 with a read-only root and no capabilities, and is capped
-at one CPU and 512MiB. Stdout carries observations to the caller. Unit tests
+at one CPU and 512 MiB, with a hard 1,800-second runtime timeout. Stdout carries observations to the caller. Unit tests
 need no services. No dependencies beyond the standard library. An editor may
 work in the checkout; a privileged/devcontainer Docker socket is unnecessary.
 The host Python command only exports trusted local JSON to CSV; it runs no simulation.
@@ -26,7 +26,11 @@ controls. Every run preserves original terminal latency/status, pending ages,
 server work remaining at cutoff, all admission/timeout/completion counters,
 arrival-schedule hash, and its full CSV timeline. Exported timeline numbers match
 zero-based run order in JSON. `summary.csv` provides the mapping and comparisons.
-Runtime metadata and exact config travel with observations. Ignore wall duration,
+UTC start time, runtime metadata and exact config travel with observations.
+A partial matrix or execution cap exits nonzero after preserving available JSON;
+scientific recovery censoring in a complete run does not fail the execution gate.
+The hard external timeout or memory kill may leave no complete JSON; preserve
+the nonzero command status and partial output as an execution failure. Ignore wall duration,
 image ID and revision when comparing semantic results from separate builds.
 
 Model details: successful response at exactly the timeout/deadline wins that tie.
