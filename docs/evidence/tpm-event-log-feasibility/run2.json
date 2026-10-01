@@ -1,0 +1,931 @@
+{
+ "lab": "tpm-event-log/control",
+ "versions": {
+  "swtpm": "TPM emulator version 0.7.1, Copyright (c) 2014-2021 IBM Corp.",
+  "tpm2_pcrread": "tool=\"tpm2_pcrread\" version=\"5.7\" tctis=\"libtss2-tctildr\" tcti-default=tcti-device",
+  "systemd": "systemd 257 (257.13-1~deb13u1)"
+ },
+ "cases": {
+  "c1": {
+   "expect_pcr11_match": true,
+   "observed_pcr11": {
+    "pcr": 11,
+    "pcrname": "kernel-boot",
+    "count": 4,
+    "hashMatchesEventLog": true,
+    "allEventsMatched": true,
+    "noMissingComponents": true,
+    "calculatedSHA256": "38d2047d0545f701a253005037bd1d1662e5f59388885f9e9443f38e2f23531e",
+    "observedSHA256": "38d2047d0545f701a253005037bd1d1662e5f59388885f9e9443f38e2f23531e"
+   },
+   "control_ok": true,
+   "independent_replay_of_written_log": "38d2047d0545f701a253005037bd1d1662e5f59388885f9e9443f38e2f23531e",
+   "replay_equals_tpm": true,
+   "log_digests_are_sha256_of_words": true,
+   "pcrlock_rc": 0,
+   "pcrlock_stderr": [
+    "Empty firmware event log file, not loading.",
+    "Couldn't find component '350-action-efi-application' in event log.",
+    "Couldn't find component '400-secureboot-separator' in event log.",
+    "Couldn't find component '500-separator' in event log.",
+    "Skipped 2 components after location '940-' (950-shutdown, 990-final).",
+    "Unable to recognize 3 components in event log."
+   ],
+   "tpm_pcr11": [
+    "sha256:",
+    "11:",
+    "0x38D2047D0545F701A253005037BD1D1662E5F59388885F9E9443F38E2F23531E"
+   ],
+   "userspace_log_records": 4,
+   "userspace_log_raw": "\u001e{\"pcr\":11,\"digests\":[{\"hashAlg\":\"sha256\",\"digest\":\"51e6b92f405d1f98d96e3de343d61d420ad6923b25de21d766f9298192f14fed\"}],\"content_type\":\"systemd\",\"content\":{\"string\":\"enter-initrd\",\"bootId\":\"REDACTED\",\"timestamp\":1757983782056,\"eventType\":\"phase\"}}\n\u001e{\"pcr\":11,\"digests\":[{\"hashAlg\":\"sha256\",\"digest\":\"3be261aff7db92bf507eae947f4003ffa2bcad0bffe3524601d62d0bc8be7135\"}],\"content_type\":\"systemd\",\"content\":{\"string\":\"leave-initrd\",\"bootId\":\"REDACTED\",\"timestamp\":1757983797534,\"eventType\":\"phase\"}}\n\u001e{\"pcr\":11,\"digests\":[{\"hashAlg\":\"sha256\",\"digest\":\"730bb5a583ba880c277e656d2dc8aba1a314a11b14d25b05153d2bab82567a48\"}],\"content_type\":\"systemd\",\"content\":{\"string\":\"sysinit\",\"bootId\":\"REDACTED\",\"timestamp\":1757983814307,\"eventType\":\"phase\"}}\n\u001e{\"pcr\":11,\"digests\":[{\"hashAlg\":\"sha256\",\"digest\":\"b24d6d33736ecd5604a4b17bc9c6481039fac362bb7df044ef1c10a2bfd21db6\"}],\"content_type\":\"systemd\",\"content\":{\"string\":\"ready\",\"bootId\":\"REDACTED\",\"timestamp\":1757983828454,\"eventType\":\"phase\"}}\n",
+   "pcrlock_json": {
+    "log": [
+     {
+      "pcr": 11,
+      "pcrname": "kernel-boot",
+      "event": "phase",
+      "match": true,
+      "sha256": "51e6b92f405d1f98d96e3de343d61d420ad6923b25de21d766f9298192f14fed",
+      "phase": "U",
+      "component": "750-enter-initrd",
+      "description": "enter-initrd"
+     },
+     {
+      "pcr": 11,
+      "pcrname": "kernel-boot",
+      "event": "phase",
+      "match": true,
+      "sha256": "3be261aff7db92bf507eae947f4003ffa2bcad0bffe3524601d62d0bc8be7135",
+      "phase": "U",
+      "component": "800-leave-initrd",
+      "description": "leave-initrd"
+     },
+     {
+      "pcr": 11,
+      "pcrname": "kernel-boot",
+      "event": "phase",
+      "match": true,
+      "sha256": "730bb5a583ba880c277e656d2dc8aba1a314a11b14d25b05153d2bab82567a48",
+      "phase": "U",
+      "component": "850-sysinit",
+      "description": "sysinit"
+     },
+     {
+      "pcr": 11,
+      "pcrname": "kernel-boot",
+      "event": "phase",
+      "match": true,
+      "sha256": "b24d6d33736ecd5604a4b17bc9c6481039fac362bb7df044ef1c10a2bfd21db6",
+      "phase": "U",
+      "component": "900-ready",
+      "description": "ready"
+     }
+    ],
+    "pcrs": [
+     {
+      "pcr": 0,
+      "pcrname": "platform-code",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 1,
+      "pcrname": "platform-config",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 2,
+      "pcrname": "external-code",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 3,
+      "pcrname": "external-config",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 4,
+      "pcrname": "boot-loader-code",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 5,
+      "pcrname": "boot-loader-config",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 6,
+      "pcrname": "host-platform",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 7,
+      "pcrname": "secure-boot-policy",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 8,
+      "pcrname": null,
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 9,
+      "pcrname": "kernel-initrd",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 10,
+      "pcrname": "ima",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 11,
+      "pcrname": "kernel-boot",
+      "count": 4,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "38d2047d0545f701a253005037bd1d1662e5f59388885f9e9443f38e2f23531e",
+      "observedSHA256": "38d2047d0545f701a253005037bd1d1662e5f59388885f9e9443f38e2f23531e"
+     },
+     {
+      "pcr": 12,
+      "pcrname": "kernel-config",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 13,
+      "pcrname": "sysexts",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 14,
+      "pcrname": "shim-policy",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 15,
+      "pcrname": "system-identity",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 16,
+      "pcrname": "debug",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 17,
+      "pcrname": null,
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "observedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "pcr": 18,
+      "pcrname": null,
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "observedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "pcr": 19,
+      "pcrname": null,
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "observedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "pcr": 20,
+      "pcrname": null,
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "observedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "pcr": 21,
+      "pcrname": null,
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "observedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "pcr": 22,
+      "pcrname": null,
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "observedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "pcr": 23,
+      "pcrname": "application-support",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     }
+    ]
+   }
+  },
+  "c2": {
+   "expect_pcr11_match": false,
+   "observed_pcr11": {
+    "pcr": 11,
+    "pcrname": "kernel-boot",
+    "count": null,
+    "hashMatchesEventLog": false,
+    "allEventsMatched": true,
+    "noMissingComponents": false,
+    "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "observedSHA256": "38d2047d0545f701a253005037bd1d1662e5f59388885f9e9443f38e2f23531e"
+   },
+   "control_ok": true,
+   "independent_replay_of_written_log": "38d2047d0545f701a253005037bd1d1662e5f59388885f9e9443f38e2f23531e",
+   "replay_equals_tpm": true,
+   "log_digests_are_sha256_of_words": true,
+   "pcrlock_rc": 0,
+   "pcrlock_stderr": [
+    "Empty firmware event log file, not loading.",
+    "Couldn't find component '350-action-efi-application' in event log.",
+    "Couldn't find component '400-secureboot-separator' in event log.",
+    "Couldn't find component '500-separator' in event log.",
+    "Couldn't find component '750-enter-initrd' in event log.",
+    "Didn't find component '800-leave-initrd' in event log, assuming system hasn't reached it yet.",
+    "Didn't find component '850-sysinit' in event log, assuming system hasn't reached it yet.",
+    "Didn't find component '900-ready' in event log, assuming system hasn't reached it yet.",
+    "Skipped 2 components after location '940-' (950-shutdown, 990-final).",
+    "Unable to recognize 4 components in event log."
+   ],
+   "tpm_pcr11": [
+    "sha256:",
+    "11:",
+    "0x38D2047D0545F701A253005037BD1D1662E5F59388885F9E9443F38E2F23531E"
+   ],
+   "userspace_log_records": 4,
+   "userspace_log_raw": "\u001e{\"pcr\":11,\"digests\":[{\"hashAlg\":\"sha256\",\"digest\":\"51e6b92f405d1f98d96e3de343d61d420ad6923b25de21d766f9298192f14fed\"}],\"content_type\":\"systemd\",\"content\":{\"string\":\"enter-initrd\",\"bootId\":\"REDACTED\",\"timestamp\":1757983890709,\"eventType\":\"phase\"}}\n\u001e{\"pcr\":11,\"digests\":[{\"hashAlg\":\"sha256\",\"digest\":\"3be261aff7db92bf507eae947f4003ffa2bcad0bffe3524601d62d0bc8be7135\"}],\"content_type\":\"systemd\",\"content\":{\"string\":\"leave-initrd\",\"bootId\":\"REDACTED\",\"timestamp\":1757983906050,\"eventType\":\"phase\"}}\n\u001e{\"pcr\":11,\"digests\":[{\"hashAlg\":\"sha256\",\"digest\":\"730bb5a583ba880c277e656d2dc8aba1a314a11b14d25b05153d2bab82567a48\"}],\"content_type\":\"systemd\",\"content\":{\"string\":\"sysinit\",\"bootId\":\"REDACTED\",\"timestamp\":1757983920161,\"eventType\":\"phase\"}}\n\u001e{\"pcr\":11,\"digests\":[{\"hashAlg\":\"sha256\",\"digest\":\"b24d6d33736ecd5604a4b17bc9c6481039fac362bb7df044ef1c10a2bfd21db6\"}],\"content_type\":\"systemd\",\"content\":{\"string\":\"ready\",\"bootId\":\"REDACTED\",\"timestamp\":1757983933161,\"eventType\":\"phase\"}}\n",
+   "pcrlock_json": {
+    "log": [],
+    "pcrs": [
+     {
+      "pcr": 0,
+      "pcrname": "platform-code",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 1,
+      "pcrname": "platform-config",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 2,
+      "pcrname": "external-code",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 3,
+      "pcrname": "external-config",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 4,
+      "pcrname": "boot-loader-code",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 5,
+      "pcrname": "boot-loader-config",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 6,
+      "pcrname": "host-platform",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 7,
+      "pcrname": "secure-boot-policy",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 8,
+      "pcrname": null,
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 9,
+      "pcrname": "kernel-initrd",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 10,
+      "pcrname": "ima",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 11,
+      "pcrname": "kernel-boot",
+      "count": null,
+      "hashMatchesEventLog": false,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "38d2047d0545f701a253005037bd1d1662e5f59388885f9e9443f38e2f23531e"
+     },
+     {
+      "pcr": 12,
+      "pcrname": "kernel-config",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 13,
+      "pcrname": "sysexts",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 14,
+      "pcrname": "shim-policy",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 15,
+      "pcrname": "system-identity",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 16,
+      "pcrname": "debug",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 17,
+      "pcrname": null,
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "observedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "pcr": 18,
+      "pcrname": null,
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "observedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "pcr": 19,
+      "pcrname": null,
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "observedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "pcr": 20,
+      "pcrname": null,
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "observedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "pcr": 21,
+      "pcrname": null,
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "observedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "pcr": 22,
+      "pcrname": null,
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "observedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "pcr": 23,
+      "pcrname": "application-support",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     }
+    ]
+   }
+  },
+  "c3": {
+   "expect_pcr11_match": false,
+   "observed_pcr11": {
+    "pcr": 11,
+    "pcrname": "kernel-boot",
+    "count": 4,
+    "hashMatchesEventLog": false,
+    "allEventsMatched": true,
+    "noMissingComponents": true,
+    "calculatedSHA256": "38d2047d0545f701a253005037bd1d1662e5f59388885f9e9443f38e2f23531e",
+    "observedSHA256": "8e0debdd7e06061395574e40cc8cdb19f395eb685081b4c597ef51ca002d9d7d"
+   },
+   "control_ok": true,
+   "independent_replay_of_written_log": "38d2047d0545f701a253005037bd1d1662e5f59388885f9e9443f38e2f23531e",
+   "replay_equals_tpm": false,
+   "log_digests_are_sha256_of_words": true,
+   "pcrlock_rc": 0,
+   "pcrlock_stderr": [
+    "Empty firmware event log file, not loading.",
+    "Couldn't find component '350-action-efi-application' in event log.",
+    "Couldn't find component '400-secureboot-separator' in event log.",
+    "Couldn't find component '500-separator' in event log.",
+    "Skipped 2 components after location '940-' (950-shutdown, 990-final).",
+    "Unable to recognize 3 components in event log."
+   ],
+   "tpm_pcr11": [
+    "sha256:",
+    "11:",
+    "0x8E0DEBDD7E06061395574E40CC8CDB19F395EB685081B4C597EF51CA002D9D7D"
+   ],
+   "userspace_log_records": 4,
+   "userspace_log_raw": "\u001e{\"pcr\":11,\"digests\":[{\"hashAlg\":\"sha256\",\"digest\":\"51e6b92f405d1f98d96e3de343d61d420ad6923b25de21d766f9298192f14fed\"}],\"content_type\":\"systemd\",\"content\":{\"string\":\"enter-initrd\",\"bootId\":\"REDACTED\",\"timestamp\":1757983992159,\"eventType\":\"phase\"}}\n\u001e{\"pcr\":11,\"digests\":[{\"hashAlg\":\"sha256\",\"digest\":\"3be261aff7db92bf507eae947f4003ffa2bcad0bffe3524601d62d0bc8be7135\"}],\"content_type\":\"systemd\",\"content\":{\"string\":\"leave-initrd\",\"bootId\":\"REDACTED\",\"timestamp\":1757984006043,\"eventType\":\"phase\"}}\n\u001e{\"pcr\":11,\"digests\":[{\"hashAlg\":\"sha256\",\"digest\":\"730bb5a583ba880c277e656d2dc8aba1a314a11b14d25b05153d2bab82567a48\"}],\"content_type\":\"systemd\",\"content\":{\"string\":\"sysinit\",\"bootId\":\"REDACTED\",\"timestamp\":1757984019886,\"eventType\":\"phase\"}}\n\u001e{\"pcr\":11,\"digests\":[{\"hashAlg\":\"sha256\",\"digest\":\"b24d6d33736ecd5604a4b17bc9c6481039fac362bb7df044ef1c10a2bfd21db6\"}],\"content_type\":\"systemd\",\"content\":{\"string\":\"ready\",\"bootId\":\"REDACTED\",\"timestamp\":1757984033870,\"eventType\":\"phase\"}}\n",
+   "pcrlock_json": {
+    "log": [
+     {
+      "pcr": 11,
+      "pcrname": "kernel-boot",
+      "event": "phase",
+      "match": true,
+      "sha256": "51e6b92f405d1f98d96e3de343d61d420ad6923b25de21d766f9298192f14fed",
+      "phase": "U",
+      "component": "750-enter-initrd",
+      "description": "enter-initrd"
+     },
+     {
+      "pcr": 11,
+      "pcrname": "kernel-boot",
+      "event": "phase",
+      "match": true,
+      "sha256": "3be261aff7db92bf507eae947f4003ffa2bcad0bffe3524601d62d0bc8be7135",
+      "phase": "U",
+      "component": "800-leave-initrd",
+      "description": "leave-initrd"
+     },
+     {
+      "pcr": 11,
+      "pcrname": "kernel-boot",
+      "event": "phase",
+      "match": true,
+      "sha256": "730bb5a583ba880c277e656d2dc8aba1a314a11b14d25b05153d2bab82567a48",
+      "phase": "U",
+      "component": "850-sysinit",
+      "description": "sysinit"
+     },
+     {
+      "pcr": 11,
+      "pcrname": "kernel-boot",
+      "event": "phase",
+      "match": true,
+      "sha256": "b24d6d33736ecd5604a4b17bc9c6481039fac362bb7df044ef1c10a2bfd21db6",
+      "phase": "U",
+      "component": "900-ready",
+      "description": "ready"
+     }
+    ],
+    "pcrs": [
+     {
+      "pcr": 0,
+      "pcrname": "platform-code",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 1,
+      "pcrname": "platform-config",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 2,
+      "pcrname": "external-code",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 3,
+      "pcrname": "external-config",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 4,
+      "pcrname": "boot-loader-code",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 5,
+      "pcrname": "boot-loader-config",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 6,
+      "pcrname": "host-platform",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 7,
+      "pcrname": "secure-boot-policy",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": false,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 8,
+      "pcrname": null,
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 9,
+      "pcrname": "kernel-initrd",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 10,
+      "pcrname": "ima",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 11,
+      "pcrname": "kernel-boot",
+      "count": 4,
+      "hashMatchesEventLog": false,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "38d2047d0545f701a253005037bd1d1662e5f59388885f9e9443f38e2f23531e",
+      "observedSHA256": "8e0debdd7e06061395574e40cc8cdb19f395eb685081b4c597ef51ca002d9d7d"
+     },
+     {
+      "pcr": 12,
+      "pcrname": "kernel-config",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 13,
+      "pcrname": "sysexts",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 14,
+      "pcrname": "shim-policy",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 15,
+      "pcrname": "system-identity",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 16,
+      "pcrname": "debug",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     {
+      "pcr": 17,
+      "pcrname": null,
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "observedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "pcr": 18,
+      "pcrname": null,
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "observedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "pcr": 19,
+      "pcrname": null,
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "observedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "pcr": 20,
+      "pcrname": null,
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "observedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "pcr": 21,
+      "pcrname": null,
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "observedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "pcr": 22,
+      "pcrname": null,
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "observedSHA256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "pcr": 23,
+      "pcrname": "application-support",
+      "count": null,
+      "hashMatchesEventLog": true,
+      "allEventsMatched": true,
+      "noMissingComponents": true,
+      "calculatedSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "observedSHA256": "0000000000000000000000000000000000000000000000000000000000000000"
+     }
+    ]
+   }
+  }
+ },
+ "all_controls_ok": true
+}
