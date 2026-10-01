@@ -41,6 +41,15 @@ flagged only the pipeline (SC2312, severity info); the gpg, curl and Pi-hole
 snippets stayed clean. ShellCheck cannot know gpg's output naming, an HTTP status
 or Pi-hole's subcommands, so this is the expected result, not a ShellCheck defect.
 
+## Article snippets
+
+`post-snippets.sh` runs the two inline snippets from the accompanying article in the
+built lab image (piped to `bash -s` under `docker run --network none --read-only
+--cap-drop ALL`, UID 65532), adding only batch passphrase flags to gpg.
+`post-snippets.txt` is its output: the `pipefail` guard exits 1; the decrypt-and-compare
+check prints `backup restores` for a real backup and, against an empty `backup.gpg`,
+prints `cmp: EOF on - which is empty` and exits 1.
+
 ## Not run
 
 Ciphertext hashes differ on every run. The Docker `DOCKER-USER` case was not run
