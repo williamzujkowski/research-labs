@@ -31,5 +31,17 @@ Observed, in summary:
 - `pihole -a adlist add <url>` exited 0 on both v6.0 and v6.4.3 with stdout
   byte-identical to `pihole --help`.
 
+## Static-analysis cross-check (host, not the lab container)
+
+`run-shellcheck.sh` writes the four pre-correction snippets as bash files and runs
+ShellCheck 0.11.0 (the host's install, not pinned by this lab) with default checks
+and with `-o all`. `shellcheck-0.11.0.txt` is its unedited output. Default checks
+reported nothing for any snippet. With every optional check enabled, ShellCheck
+flagged only the pipeline (SC2312, severity info); the gpg, curl and Pi-hole
+snippets stayed clean. ShellCheck cannot know gpg's output naming, an HTTP status
+or Pi-hole's subcommands, so this is the expected result, not a ShellCheck defect.
+
+## Not run
+
 Ciphertext hashes differ on every run. The Docker `DOCKER-USER` case was not run
 (it requires `NET_ADMIN`); see the lab README.
