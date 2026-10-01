@@ -1,0 +1,50 @@
+failed to fetch metadata: fork/exec /home/william/.docker/cli-plugins/docker-buildx: no such file or directory
+
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  134.7kB
+Step 1/10 : FROM python:3.12-slim@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea
+ ---> ec7d6c95cd36
+Step 2/10 : ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+ ---> Using cache
+ ---> 7987345c3352
+Step 3/10 : RUN printf '%s\n'       'Types: deb'       'URIs: http://snapshot.debian.org/archive/debian/20260824T000000Z'       'Suites: trixie trixie-updates'       'Components: main'       'Signed-By: /usr/share/keyrings/debian-archive-keyring.pgp'       ''       'Types: deb'       'URIs: http://snapshot.debian.org/archive/debian-security/20260824T000000Z'       'Suites: trixie-security'       'Components: main'       'Signed-By: /usr/share/keyrings/debian-archive-keyring.pgp'       > /etc/apt/sources.list.d/debian.sources  && apt-get -o Acquire::Check-Valid-Until=false update  && apt-get install -y --no-install-recommends curl gnupg  && rm -rf /var/lib/apt/lists/*
+ ---> Using cache
+ ---> dc130792ecba
+Step 4/10 : RUN mkdir -p /opt/pihole /opt/pihole-upstream  && curl -fsSL -o /opt/pihole-upstream/pihole-v6.0       https://raw.githubusercontent.com/pi-hole/pi-hole/2d81552f9f16fb5e12df31069078b43f0e826c3b/pihole  && curl -fsSL -o /opt/pihole-upstream/pihole-v6.4.3       https://raw.githubusercontent.com/pi-hole/pi-hole/f47b8ede5a8e38f9c703202d324a074dbdba4ca9/pihole  && printf '%s  %s\n'       e4a6338ec7f725435342a7e95f820d5817de2ecc21075b6ab3faebc869f8c5c7 /opt/pihole-upstream/pihole-v6.0       a6ca13ae4de96df06b5a72def9525cfb3a4ad56aa34212f07f483e38fc6ad2b4 /opt/pihole-upstream/pihole-v6.4.3     | sha256sum -c -  && : > /opt/pihole/COL_TABLE && : > /opt/pihole/utils.sh && : > /opt/pihole/api.sh
+ ---> Using cache
+ ---> 36d5ffc5e0a5
+Step 5/10 : WORKDIR /app
+ ---> Using cache
+ ---> 2de3457e118d
+Step 6/10 : COPY labs/exit-status /app/labs/exit-status
+ ---> a990f8a0181d
+Step 7/10 : COPY tests/exit_status /app/tests/exit_status
+ ---> 67a4ab47b719
+Step 8/10 : RUN chmod -R a+rX /app /opt/pihole /opt/pihole-upstream
+ ---> Running in 0fdb0b7df6a6
+ ---> Removed intermediate container 0fdb0b7df6a6
+ ---> 02da2291fde7
+Step 9/10 : USER 65532:65532
+ ---> Running in 6dd6a37f71f1
+ ---> Removed intermediate container 6dd6a37f71f1
+ ---> 7663964a3ae7
+Step 10/10 : CMD ["python", "labs/exit-status/run.py"]
+ ---> Running in 5a2c1aaa18d3
+ ---> Removed intermediate container 5a2c1aaa18d3
+ ---> 98dd86c7ed3d
+Successfully built 98dd86c7ed3d
+Successfully tagged research-labs-exit-status:local
+test_exit_nonzero_rejects_zero_and_timeout (test_run.CheckerTests.test_exit_nonzero_rejects_zero_and_timeout) ... ok
+test_file_states_are_distinguished (test_run.CheckerTests.test_file_states_are_distinguished) ... ok
+test_stdout_equality_needs_the_other_case (test_run.CheckerTests.test_stdout_equality_needs_the_other_case) ... ok
+test_wrong_exit_is_reported (test_run.CheckerTests.test_wrong_exit_is_reported) ... ok
+test_each_published_shape_has_a_control_that_fails (test_run.LiveCaseTests.test_each_published_shape_has_a_control_that_fails) ... ok
+test_every_case_matches (test_run.LiveCaseTests.test_every_case_matches) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 6.535s
+
+OK
