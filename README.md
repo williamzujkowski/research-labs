@@ -13,6 +13,7 @@ It is a paper-inspired API experiment, not a full ZipDiff replication or a secur
 | ZIP readers | Do indexed and streaming APIs observe the same entries? | [ZIP pilot](labs/zip-differentials/README.md) |
 | Collaborative score | Can equal replicas keep valid text but change lane assignment? | [Historical Yjs traces](labs/music-traces/README.md) |
 | Retry recovery | How do retry policies affect original-request completions in a fixed model? | [Retry simulation](labs/retry-recovery/README.md) |
+| Exit status | Do published commands report success after failing, and does a corrected form report it? | [Exit-status lab](labs/exit-status/README.md) |
 
 [Research decisions](docs/pilot-decisions-2026-09-13.md) distinguish completed artifacts from article candidates.
 

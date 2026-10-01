@@ -1,0 +1,25 @@
+ShellCheck - shell script analysis tool
+version: 0.11.0
+== pipe default
+exit=0
+== pipe -o all
+
+In pipe.sh line 3:
+sudo suricata-update --verbose 2>&1 | tee /var/log/suricata-update.log
+^-- SC2312 (info): Consider invoking this command separately to avoid masking its return value (or use '|| true' to ignore).
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2312 -- Consider invoking this command se...
+exit=1
+== gpg default
+exit=0
+== gpg -o all
+exit=0
+== curl default
+exit=0
+== curl -o all
+exit=0
+== pihole default
+exit=0
+== pihole -o all
+exit=0

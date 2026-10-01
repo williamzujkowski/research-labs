@@ -1,0 +1,527 @@
+{
+  "lab": "exit-status",
+  "environment": {
+    "image_id": "sha256:98dd86c7ed3dbc9fef924ec6604f9dbeb06387686436d16cf9965c025ef5de36",
+    "revision": "70619f67b6de7b307c92b49f7e57bc07f1567fc1",
+    "dirty": "false",
+    "machine": "x86_64",
+    "kernel": "7.0.0-31-generic",
+    "uid": 65532,
+    "bash": "GNU bash, version 5.2.37(1)-release (x86_64-pc-linux-gnu)",
+    "gpg": "gpg (GnuPG) 2.4.7",
+    "curl": "curl 8.14.1 (x86_64-pc-linux-gnu) libcurl/8.14.1 OpenSSL/3.5.7 zlib/1.3.1 brotli/1.1.0 zstd/1.5.7 libidn2/2.3.8 libpsl/0.21.2 libssh2/1.11.1 nghttp2/1.64.0 nghttp3/1.8.0 librtmp/2.3 OpenLDAP/2.6.10",
+    "python": "3.12.14",
+    "pihole_upstream_sha256": {
+      "v6.0": "e4a6338ec7f725435342a7e95f820d5817de2ecc21075b6ab3faebc869f8c5c7",
+      "v6.4.3": "a6ca13ae4de96df06b5a72def9525cfb3a4ad56aa34212f07f483e38fc6ad2b4"
+    }
+  },
+  "all_matched": true,
+  "cases": [
+    {
+      "id": "harness-sees-failure",
+      "group": "harness",
+      "role": "control",
+      "script": "exit 7",
+      "expect": {
+        "exit": 7
+      },
+      "exit": 7,
+      "timed_out": false,
+      "stdout": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "",
+      "files": {
+        "seeds.txt": {
+          "size": 53,
+          "sha256": "b96824212eed2e6afec27cca6ea2b2f4755caa2048d6a0051c00dcc5953ce463",
+          "head": "otpauth://totp/lab:synthetic?secret=JBSWY3DPEHPK3PXP\n"
+        }
+      },
+      "expectation_failures": [],
+      "matched": true
+    },
+    {
+      "id": "pipe-set-e",
+      "group": "pipeline",
+      "role": "published",
+      "script": "set -e; false | tee out.log; echo REACHED",
+      "expect": {
+        "exit": 0,
+        "stdout_contains": "REACHED"
+      },
+      "exit": 0,
+      "timed_out": false,
+      "stdout": "REACHED\n",
+      "stdout_sha256": "d38b9a7c7cb7ca852d535a353a07f959e3d6e69033cd368afbfdd9327103fccd",
+      "stderr": "",
+      "files": {
+        "out.log": {
+          "size": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "head": ""
+        },
+        "seeds.txt": {
+          "size": 53,
+          "sha256": "b96824212eed2e6afec27cca6ea2b2f4755caa2048d6a0051c00dcc5953ce463",
+          "head": "otpauth://totp/lab:synthetic?secret=JBSWY3DPEHPK3PXP\n"
+        }
+      },
+      "expectation_failures": [],
+      "matched": true
+    },
+    {
+      "id": "pipe-set-e-pipefail",
+      "group": "pipeline",
+      "role": "control",
+      "script": "set -eo pipefail; false | tee out.log; echo REACHED",
+      "expect": {
+        "exit": 1,
+        "stdout_lacks": "REACHED"
+      },
+      "exit": 1,
+      "timed_out": false,
+      "stdout": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "",
+      "files": {
+        "out.log": {
+          "size": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "head": ""
+        },
+        "seeds.txt": {
+          "size": 53,
+          "sha256": "b96824212eed2e6afec27cca6ea2b2f4755caa2048d6a0051c00dcc5953ce463",
+          "head": "otpauth://totp/lab:synthetic?secret=JBSWY3DPEHPK3PXP\n"
+        }
+      },
+      "expectation_failures": [],
+      "matched": true
+    },
+    {
+      "id": "pipe-set-e-failing-fetch",
+      "group": "pipeline",
+      "role": "published",
+      "script": "set -e; sh -c 'echo \"fetch failed: 403\" >&2; exit 1' 2>&1 | tee update.log; echo RELOADING",
+      "expect": {
+        "exit": 0,
+        "stdout_contains": "RELOADING",
+        "files": {
+          "update.log": "contains:fetch failed"
+        }
+      },
+      "exit": 0,
+      "timed_out": false,
+      "stdout": "fetch failed: 403\nRELOADING\n",
+      "stdout_sha256": "b84dc0cb2808f59fbdff34ff720a5ad8667034bf097e7e78efb8e93fa6ad3dfb",
+      "stderr": "",
+      "files": {
+        "seeds.txt": {
+          "size": 53,
+          "sha256": "b96824212eed2e6afec27cca6ea2b2f4755caa2048d6a0051c00dcc5953ce463",
+          "head": "otpauth://totp/lab:synthetic?secret=JBSWY3DPEHPK3PXP\n"
+        },
+        "update.log": {
+          "size": 18,
+          "sha256": "4f48e7e6cafb5799c4a6e6e2bda6d2eca275802dcb72ad5d193c66a365f28d90",
+          "head": "fetch failed: 403\n"
+        }
+      },
+      "expectation_failures": [],
+      "matched": true
+    },
+    {
+      "id": "pipe-pipefail-failing-fetch",
+      "group": "pipeline",
+      "role": "control",
+      "script": "set -eo pipefail; sh -c 'echo \"fetch failed: 403\" >&2; exit 1' 2>&1 | tee update.log; echo RELOADING",
+      "expect": {
+        "exit": 1,
+        "stdout_lacks": "RELOADING",
+        "files": {
+          "update.log": "contains:fetch failed"
+        }
+      },
+      "exit": 1,
+      "timed_out": false,
+      "stdout": "fetch failed: 403\n",
+      "stdout_sha256": "4f48e7e6cafb5799c4a6e6e2bda6d2eca275802dcb72ad5d193c66a365f28d90",
+      "stderr": "",
+      "files": {
+        "seeds.txt": {
+          "size": 53,
+          "sha256": "b96824212eed2e6afec27cca6ea2b2f4755caa2048d6a0051c00dcc5953ce463",
+          "head": "otpauth://totp/lab:synthetic?secret=JBSWY3DPEHPK3PXP\n"
+        },
+        "update.log": {
+          "size": 18,
+          "sha256": "4f48e7e6cafb5799c4a6e6e2bda6d2eca275802dcb72ad5d193c66a365f28d90",
+          "head": "fetch failed: 403\n"
+        }
+      },
+      "expectation_failures": [],
+      "matched": true
+    },
+    {
+      "id": "gpg-redirect",
+      "group": "gpg",
+      "role": "published",
+      "script": "gpg --batch --pinentry-mode loopback --passphrase-file pass.txt --symmetric --cipher-algo AES256 seeds.txt > backup.gpg",
+      "expect": {
+        "exit": 0,
+        "files": {
+          "backup.gpg": "empty",
+          "seeds.txt.gpg": "nonempty",
+          "seeds.txt": "nonempty"
+        }
+      },
+      "exit": 0,
+      "timed_out": false,
+      "stdout": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "gpg: keybox '/tmp/gpg-redirect-1h15cbnq/.gnupg/pubring.kbx' created\n",
+      "files": {
+        "backup.gpg": {
+          "size": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "head": null
+        },
+        "seeds.txt": {
+          "size": 53,
+          "sha256": "b96824212eed2e6afec27cca6ea2b2f4755caa2048d6a0051c00dcc5953ce463",
+          "head": "otpauth://totp/lab:synthetic?secret=JBSWY3DPEHPK3PXP\n"
+        },
+        "seeds.txt.gpg": {
+          "size": 131,
+          "sha256": "54b7aa5ad5649b0ae09d34ee323df2963deb1b22d5c5b57f745282b359205259",
+          "head": null
+        }
+      },
+      "expectation_failures": [],
+      "matched": true
+    },
+    {
+      "id": "gpg-redirect-roundtrip",
+      "group": "gpg",
+      "role": "check",
+      "script": "gpg --batch --pinentry-mode loopback --passphrase-file pass.txt --symmetric --cipher-algo AES256 seeds.txt > backup.gpg; gpg --batch --pinentry-mode loopback --passphrase-file pass.txt --decrypt backup.gpg > restored.txt; status=$?; cmp -s seeds.txt restored.txt && echo RESTORED; exit $status",
+      "expect": {
+        "exit_nonzero": true,
+        "stdout_lacks": "RESTORED"
+      },
+      "exit": 2,
+      "timed_out": false,
+      "stdout": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "gpg: keybox '/tmp/gpg-redirect-roundtrip-t0lacgim/.gnupg/pubring.kbx' created\ngpg: decrypt_message failed: Unknown system error\n",
+      "files": {
+        "backup.gpg": {
+          "size": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "head": null
+        },
+        "restored.txt": {
+          "size": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "head": ""
+        },
+        "seeds.txt": {
+          "size": 53,
+          "sha256": "b96824212eed2e6afec27cca6ea2b2f4755caa2048d6a0051c00dcc5953ce463",
+          "head": "otpauth://totp/lab:synthetic?secret=JBSWY3DPEHPK3PXP\n"
+        },
+        "seeds.txt.gpg": {
+          "size": 131,
+          "sha256": "a6c83a45f1d08a6792db808014e9ba93e178a39e42a76d4cc9ccc46918446614",
+          "head": null
+        }
+      },
+      "expectation_failures": [],
+      "matched": true
+    },
+    {
+      "id": "gpg-output",
+      "group": "gpg",
+      "role": "control",
+      "script": "gpg --batch --pinentry-mode loopback --passphrase-file pass.txt --symmetric --cipher-algo AES256 --output backup.gpg seeds.txt",
+      "expect": {
+        "exit": 0,
+        "files": {
+          "backup.gpg": "nonempty",
+          "seeds.txt.gpg": "absent"
+        }
+      },
+      "exit": 0,
+      "timed_out": false,
+      "stdout": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "gpg: keybox '/tmp/gpg-output-qeo09bjd/.gnupg/pubring.kbx' created\n",
+      "files": {
+        "backup.gpg": {
+          "size": 131,
+          "sha256": "bbab801205d97b9aa29665e39783963f61ad97e154c0e75e84420483a1aa4856",
+          "head": null
+        },
+        "seeds.txt": {
+          "size": 53,
+          "sha256": "b96824212eed2e6afec27cca6ea2b2f4755caa2048d6a0051c00dcc5953ce463",
+          "head": "otpauth://totp/lab:synthetic?secret=JBSWY3DPEHPK3PXP\n"
+        }
+      },
+      "expectation_failures": [],
+      "matched": true
+    },
+    {
+      "id": "gpg-output-roundtrip",
+      "group": "gpg",
+      "role": "check",
+      "script": "gpg --batch --pinentry-mode loopback --passphrase-file pass.txt --symmetric --cipher-algo AES256 --output backup.gpg seeds.txt && gpg --batch --pinentry-mode loopback --passphrase-file pass.txt --decrypt --output restored.txt backup.gpg && cmp -s seeds.txt restored.txt && echo RESTORED",
+      "expect": {
+        "exit": 0,
+        "stdout_contains": "RESTORED"
+      },
+      "exit": 0,
+      "timed_out": false,
+      "stdout": "RESTORED\n",
+      "stdout_sha256": "d76c795987205b838ac2d149a962ce5506c7a1f6da940d73c5b67a3ad69b2dd8",
+      "stderr": "gpg: keybox '/tmp/gpg-output-roundtrip-swdyj860/.gnupg/pubring.kbx' created\ngpg: AES256.CFB encrypted data\ngpg: encrypted with 1 passphrase\n",
+      "files": {
+        "backup.gpg": {
+          "size": 131,
+          "sha256": "85ff0765f272dad4ca25117fa13bf7976e8288b322a59c12967b333e94a891be",
+          "head": null
+        },
+        "restored.txt": {
+          "size": 53,
+          "sha256": "b96824212eed2e6afec27cca6ea2b2f4755caa2048d6a0051c00dcc5953ce463",
+          "head": "otpauth://totp/lab:synthetic?secret=JBSWY3DPEHPK3PXP\n"
+        },
+        "seeds.txt": {
+          "size": 53,
+          "sha256": "b96824212eed2e6afec27cca6ea2b2f4755caa2048d6a0051c00dcc5953ce463",
+          "head": "otpauth://totp/lab:synthetic?secret=JBSWY3DPEHPK3PXP\n"
+        }
+      },
+      "expectation_failures": [],
+      "matched": true
+    },
+    {
+      "id": "curl-O-403",
+      "group": "curl",
+      "role": "published",
+      "script": "curl -sO http://127.0.0.1:43711/denied/docker-compose.yml",
+      "expect": {
+        "exit": 0,
+        "files": {
+          "docker-compose.yml": "contains:AccessDenied"
+        }
+      },
+      "exit": 0,
+      "timed_out": false,
+      "stdout": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "",
+      "files": {
+        "docker-compose.yml": {
+          "size": 111,
+          "sha256": "a824bc7739e226e1b40ea0f8c4e4f4c6f796fc3b4abfa6e9abe3bd119a30d938",
+          "head": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Error><Code>AccessDenied</Code><Message>Access Denied</Message></Error>"
+        },
+        "seeds.txt": {
+          "size": 53,
+          "sha256": "b96824212eed2e6afec27cca6ea2b2f4755caa2048d6a0051c00dcc5953ce463",
+          "head": "otpauth://totp/lab:synthetic?secret=JBSWY3DPEHPK3PXP\n"
+        }
+      },
+      "expectation_failures": [],
+      "matched": true
+    },
+    {
+      "id": "curl-fail-403",
+      "group": "curl",
+      "role": "control",
+      "script": "curl -fsSO http://127.0.0.1:43711/denied/docker-compose.yml",
+      "expect": {
+        "exit": 22,
+        "files": {
+          "docker-compose.yml": "absent"
+        }
+      },
+      "exit": 22,
+      "timed_out": false,
+      "stdout": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "curl: (22) The requested URL returned error: 403\n",
+      "files": {
+        "seeds.txt": {
+          "size": 53,
+          "sha256": "b96824212eed2e6afec27cca6ea2b2f4755caa2048d6a0051c00dcc5953ce463",
+          "head": "otpauth://totp/lab:synthetic?secret=JBSWY3DPEHPK3PXP\n"
+        }
+      },
+      "expectation_failures": [],
+      "matched": true
+    },
+    {
+      "id": "curl-fail-with-body-403",
+      "group": "curl",
+      "role": "control",
+      "script": "curl --fail-with-body -sSO http://127.0.0.1:43711/denied/docker-compose.yml",
+      "expect": {
+        "exit": 22,
+        "files": {
+          "docker-compose.yml": "contains:AccessDenied"
+        }
+      },
+      "exit": 22,
+      "timed_out": false,
+      "stdout": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "curl: (22) The requested URL returned error: 403\n",
+      "files": {
+        "docker-compose.yml": {
+          "size": 111,
+          "sha256": "a824bc7739e226e1b40ea0f8c4e4f4c6f796fc3b4abfa6e9abe3bd119a30d938",
+          "head": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Error><Code>AccessDenied</Code><Message>Access Denied</Message></Error>"
+        },
+        "seeds.txt": {
+          "size": 53,
+          "sha256": "b96824212eed2e6afec27cca6ea2b2f4755caa2048d6a0051c00dcc5953ce463",
+          "head": "otpauth://totp/lab:synthetic?secret=JBSWY3DPEHPK3PXP\n"
+        }
+      },
+      "expectation_failures": [],
+      "matched": true
+    },
+    {
+      "id": "curl-fail-200",
+      "group": "curl",
+      "role": "control",
+      "script": "curl -fsSO http://127.0.0.1:43711/ok/docker-compose.yml",
+      "expect": {
+        "exit": 0,
+        "files": {
+          "docker-compose.yml": "contains:services:"
+        }
+      },
+      "exit": 0,
+      "timed_out": false,
+      "stdout": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": "",
+      "files": {
+        "docker-compose.yml": {
+          "size": 50,
+          "sha256": "83ef04a1389fdc9909b906a0ddc0e5cf13cf9460ba3b0748858e815b71a2937a",
+          "head": "services:\n  lab:\n    image: example.invalid/lab:1\n"
+        },
+        "seeds.txt": {
+          "size": 53,
+          "sha256": "b96824212eed2e6afec27cca6ea2b2f4755caa2048d6a0051c00dcc5953ce463",
+          "head": "otpauth://totp/lab:synthetic?secret=JBSWY3DPEHPK3PXP\n"
+        }
+      },
+      "expectation_failures": [],
+      "matched": true
+    },
+    {
+      "id": "pihole-v6.0-adlist-add",
+      "group": "pihole",
+      "role": "published",
+      "script": "bash /opt/pihole-upstream/pihole-v6.0 -a adlist add https://blocklist.invalid/malware",
+      "expect": {
+        "exit": 0,
+        "stdout_contains": "Usage: pihole",
+        "stdout_equals_case": "pihole-v6.0-help"
+      },
+      "exit": 0,
+      "timed_out": false,
+      "stdout": "Usage: pihole [options]\nExample: 'pihole allow -h'\nAdd '-h' after specific commands for more information on usage\n\nDomain Options:\n  allow, allowlist    Allow domain(s)\n  deny, denylist      Deny domain(s)\n  --regex, regex      Regex deny domains(s)\n  --allow-regex       Regex allow domains(s)\n  --wild, wildcard    Wildcard deny domain(s)\n  --allow-wild        Wildcard allow domain(s)\n                        Add '-h' for more info on allow/deny usage\n\nDebugging Options:\n  -d, debug           Start a debugging session\n                        Add '-c' or '--check-database' to include a Pi-hole database integrity check\n                        Add '-a' to automatically upload the log to tricorder.pi-hole.net\n  -f, flush           Flush the Pi-hole log\n  -r, reconfigure     Reconfigure or Repair Pi-hole subsystems\n  -t, tail [arg]      View the live output of the Pi-hole log.\n                      Add an optional argument to filter the log\n                      (regular expressions are supported)\n  api <endpoint>      Query the Pi-hole API at <endpoint>\n\n\nOptions:\n  setpassword [pwd]   Set the password for the web interface\n                        Without optional argument, password is read interactively.\n                        When specifying a password directly, enclose it in single quotes.\n  -g, updateGravity   Update the list of ad-serving domains\n  -h, --help, help    Show this help dialog\n  -l, logging         Specify whether the Pi-hole log should be used\n                        Add '-h' for more info on logging usage\n  -q, query           Query the adlists for a specified domain\n                        Add '-h' for more info on query usage\n  -up, updatePihole   Update Pi-hole subsystems\n                        Add '--check-only' to exit script before update is performed.\n  -v, version         Show installed versions of Pi-hole, Web Interface & FTL\n  uninstall           Uninstall Pi-hole from your system\n  status              Display the running status of Pi-hole subsystems\n  enable              Enable Pi-hole subsystems\n                        Add '-h' for more info on enable usage\n  disable             Disable Pi-hole subsystems\n                        Add '-h' for more info on disable usage\n  reloaddns           Update the lists and flush the cache without restarting the DNS server\n  reloadlists         Update the lists WITHOUT flushing the cache or restarting the DNS server\n  checkout            Switch Pi-hole subsystems to a different GitHub branch\n                        Add '-h' for more info on checkout usage\n  arpflush            Flush information stored in Pi-hole's network tables\n",
+      "stdout_sha256": "cd8e30efbea8fe3878e965167e945706cf1d60e45e5ce36a07904def65692611",
+      "stderr": "",
+      "files": {
+        "seeds.txt": {
+          "size": 53,
+          "sha256": "b96824212eed2e6afec27cca6ea2b2f4755caa2048d6a0051c00dcc5953ce463",
+          "head": "otpauth://totp/lab:synthetic?secret=JBSWY3DPEHPK3PXP\n"
+        }
+      },
+      "expectation_failures": [],
+      "matched": true
+    },
+    {
+      "id": "pihole-v6.0-help",
+      "group": "pihole",
+      "role": "control",
+      "script": "bash /opt/pihole-upstream/pihole-v6.0 --help",
+      "expect": {
+        "exit": 0,
+        "stdout_contains": "Usage: pihole"
+      },
+      "exit": 0,
+      "timed_out": false,
+      "stdout": "Usage: pihole [options]\nExample: 'pihole allow -h'\nAdd '-h' after specific commands for more information on usage\n\nDomain Options:\n  allow, allowlist    Allow domain(s)\n  deny, denylist      Deny domain(s)\n  --regex, regex      Regex deny domains(s)\n  --allow-regex       Regex allow domains(s)\n  --wild, wildcard    Wildcard deny domain(s)\n  --allow-wild        Wildcard allow domain(s)\n                        Add '-h' for more info on allow/deny usage\n\nDebugging Options:\n  -d, debug           Start a debugging session\n                        Add '-c' or '--check-database' to include a Pi-hole database integrity check\n                        Add '-a' to automatically upload the log to tricorder.pi-hole.net\n  -f, flush           Flush the Pi-hole log\n  -r, reconfigure     Reconfigure or Repair Pi-hole subsystems\n  -t, tail [arg]      View the live output of the Pi-hole log.\n                      Add an optional argument to filter the log\n                      (regular expressions are supported)\n  api <endpoint>      Query the Pi-hole API at <endpoint>\n\n\nOptions:\n  setpassword [pwd]   Set the password for the web interface\n                        Without optional argument, password is read interactively.\n                        When specifying a password directly, enclose it in single quotes.\n  -g, updateGravity   Update the list of ad-serving domains\n  -h, --help, help    Show this help dialog\n  -l, logging         Specify whether the Pi-hole log should be used\n                        Add '-h' for more info on logging usage\n  -q, query           Query the adlists for a specified domain\n                        Add '-h' for more info on query usage\n  -up, updatePihole   Update Pi-hole subsystems\n                        Add '--check-only' to exit script before update is performed.\n  -v, version         Show installed versions of Pi-hole, Web Interface & FTL\n  uninstall           Uninstall Pi-hole from your system\n  status              Display the running status of Pi-hole subsystems\n  enable              Enable Pi-hole subsystems\n                        Add '-h' for more info on enable usage\n  disable             Disable Pi-hole subsystems\n                        Add '-h' for more info on disable usage\n  reloaddns           Update the lists and flush the cache without restarting the DNS server\n  reloadlists         Update the lists WITHOUT flushing the cache or restarting the DNS server\n  checkout            Switch Pi-hole subsystems to a different GitHub branch\n                        Add '-h' for more info on checkout usage\n  arpflush            Flush information stored in Pi-hole's network tables\n",
+      "stdout_sha256": "cd8e30efbea8fe3878e965167e945706cf1d60e45e5ce36a07904def65692611",
+      "stderr": "",
+      "files": {
+        "seeds.txt": {
+          "size": 53,
+          "sha256": "b96824212eed2e6afec27cca6ea2b2f4755caa2048d6a0051c00dcc5953ce463",
+          "head": "otpauth://totp/lab:synthetic?secret=JBSWY3DPEHPK3PXP\n"
+        }
+      },
+      "expectation_failures": [],
+      "matched": true
+    },
+    {
+      "id": "pihole-v6.4.3-adlist-add",
+      "group": "pihole",
+      "role": "published",
+      "script": "bash /opt/pihole-upstream/pihole-v6.4.3 -a adlist add https://blocklist.invalid/malware",
+      "expect": {
+        "exit": 0,
+        "stdout_contains": "Usage: pihole",
+        "stdout_equals_case": "pihole-v6.4.3-help"
+      },
+      "exit": 0,
+      "timed_out": false,
+      "stdout": "Usage: pihole [options]\nExample: 'pihole allow -h'\nAdd '-h' after specific commands for more information on usage\n\nDomain Options:\n  allow, allowlist    Allow domain(s)\n  deny, denylist      Deny domain(s)\n  --regex, regex      Regex deny domains(s)\n  --allow-regex       Regex allow domains(s)\n  --wild, wildcard    Wildcard deny domain(s)\n  --allow-wild        Wildcard allow domain(s)\n                        Add '-h' for more info on allow/deny usage\n\nDebugging Options:\n  -d, debug           Start a debugging session\n                        Add '-c' or '--check-database' to include a Pi-hole database integrity check\n                        Add '-a' to automatically upload the log to tricorder.pi-hole.net\n  -f, flush           Flush the Pi-hole log\n  -r, repair          Repair Pi-hole subsystems\n  -t, tail [arg]      View the live output of the Pi-hole log.\n                      Add an optional argument to filter the log\n                      (regular expressions are supported)\n  api <endpoint>      Query the Pi-hole API at <endpoint>\n                        Precede <endpoint> with 'verbose' option to show authentication and status messages\n\n\nOptions:\n  setpassword [pwd]   Set the password for the web interface\n                        Without optional argument, password is read interactively.\n                        When specifying a password directly, enclose it in single quotes.\n  -g, updateGravity   Update the list of ad-serving domains\n  -h, --help, help    Show this help dialog\n  -l, logging         Specify whether the Pi-hole log should be used\n                        Add '-h' for more info on logging usage\n  -q, query           Query the adlists for a specified domain\n                        Add '-h' for more info on query usage\n  -up, updatePihole   Update Pi-hole subsystems\n                        Add '--check-only' to exit script before update is performed.\n  -v, version         Show installed versions of Pi-hole, Web Interface & FTL\n  uninstall           Uninstall Pi-hole from your system\n  status              Display the running status of Pi-hole subsystems\n  enable              Enable Pi-hole subsystems\n                        Add '-h' for more info on enable usage\n  disable             Disable Pi-hole subsystems\n                        Add '-h' for more info on disable usage\n  reloaddns           Update the lists and flush the cache without restarting the DNS server\n  reloadlists         Update the lists WITHOUT flushing the cache or restarting the DNS server\n  checkout            Switch Pi-hole subsystems to a different GitHub branch\n                        Add '-h' for more info on checkout usage\n  networkflush        Flush information stored in Pi-hole's network tables\n                        Add '--arp' to additionally flush the ARP table \n",
+      "stdout_sha256": "2ccd2afab836d18394e08542b752713b243b054f1051dd405c5897b37c4e6855",
+      "stderr": "/opt/pihole-upstream/pihole-v6.4.3: line 35: loadVersionFile: command not found\n",
+      "files": {
+        "seeds.txt": {
+          "size": 53,
+          "sha256": "b96824212eed2e6afec27cca6ea2b2f4755caa2048d6a0051c00dcc5953ce463",
+          "head": "otpauth://totp/lab:synthetic?secret=JBSWY3DPEHPK3PXP\n"
+        }
+      },
+      "expectation_failures": [],
+      "matched": true
+    },
+    {
+      "id": "pihole-v6.4.3-help",
+      "group": "pihole",
+      "role": "control",
+      "script": "bash /opt/pihole-upstream/pihole-v6.4.3 --help",
+      "expect": {
+        "exit": 0,
+        "stdout_contains": "Usage: pihole"
+      },
+      "exit": 0,
+      "timed_out": false,
+      "stdout": "Usage: pihole [options]\nExample: 'pihole allow -h'\nAdd '-h' after specific commands for more information on usage\n\nDomain Options:\n  allow, allowlist    Allow domain(s)\n  deny, denylist      Deny domain(s)\n  --regex, regex      Regex deny domains(s)\n  --allow-regex       Regex allow domains(s)\n  --wild, wildcard    Wildcard deny domain(s)\n  --allow-wild        Wildcard allow domain(s)\n                        Add '-h' for more info on allow/deny usage\n\nDebugging Options:\n  -d, debug           Start a debugging session\n                        Add '-c' or '--check-database' to include a Pi-hole database integrity check\n                        Add '-a' to automatically upload the log to tricorder.pi-hole.net\n  -f, flush           Flush the Pi-hole log\n  -r, repair          Repair Pi-hole subsystems\n  -t, tail [arg]      View the live output of the Pi-hole log.\n                      Add an optional argument to filter the log\n                      (regular expressions are supported)\n  api <endpoint>      Query the Pi-hole API at <endpoint>\n                        Precede <endpoint> with 'verbose' option to show authentication and status messages\n\n\nOptions:\n  setpassword [pwd]   Set the password for the web interface\n                        Without optional argument, password is read interactively.\n                        When specifying a password directly, enclose it in single quotes.\n  -g, updateGravity   Update the list of ad-serving domains\n  -h, --help, help    Show this help dialog\n  -l, logging         Specify whether the Pi-hole log should be used\n                        Add '-h' for more info on logging usage\n  -q, query           Query the adlists for a specified domain\n                        Add '-h' for more info on query usage\n  -up, updatePihole   Update Pi-hole subsystems\n                        Add '--check-only' to exit script before update is performed.\n  -v, version         Show installed versions of Pi-hole, Web Interface & FTL\n  uninstall           Uninstall Pi-hole from your system\n  status              Display the running status of Pi-hole subsystems\n  enable              Enable Pi-hole subsystems\n                        Add '-h' for more info on enable usage\n  disable             Disable Pi-hole subsystems\n                        Add '-h' for more info on disable usage\n  reloaddns           Update the lists and flush the cache without restarting the DNS server\n  reloadlists         Update the lists WITHOUT flushing the cache or restarting the DNS server\n  checkout            Switch Pi-hole subsystems to a different GitHub branch\n                        Add '-h' for more info on checkout usage\n  networkflush        Flush information stored in Pi-hole's network tables\n                        Add '--arp' to additionally flush the ARP table \n",
+      "stdout_sha256": "2ccd2afab836d18394e08542b752713b243b054f1051dd405c5897b37c4e6855",
+      "stderr": "/opt/pihole-upstream/pihole-v6.4.3: line 35: loadVersionFile: command not found\n",
+      "files": {
+        "seeds.txt": {
+          "size": 53,
+          "sha256": "b96824212eed2e6afec27cca6ea2b2f4755caa2048d6a0051c00dcc5953ce463",
+          "head": "otpauth://totp/lab:synthetic?secret=JBSWY3DPEHPK3PXP\n"
+        }
+      },
+      "expectation_failures": [],
+      "matched": true
+    }
+  ]
+}

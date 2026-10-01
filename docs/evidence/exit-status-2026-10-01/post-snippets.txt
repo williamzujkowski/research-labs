@@ -1,0 +1,9 @@
+== snippet 1
+exit=1
+== snippet 2, good backup
+gpg: keybox '/tmp/tmp.BWaPIjetJV/.gnupg/pubring.kbx' created
+backup restores
+exit=0
+== snippet 2, empty backup (negative control)
+cmp: EOF on - which is empty
+exit=1
