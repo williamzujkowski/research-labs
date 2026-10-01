@@ -1,0 +1,28 @@
+name: Exit-status lab
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  reproduce:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Checker and live-case tests in pinned container
+        run: ./scripts/exit-status-lab.sh test
+      - name: Record every case
+        run: |
+          mkdir -p results
+          ./scripts/exit-status-lab.sh run > results/exit-status.json
+      - name: Retain raw observations, including failed runs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: exit-status-observations
+          path: results/
+          if-no-files-found: ignore
