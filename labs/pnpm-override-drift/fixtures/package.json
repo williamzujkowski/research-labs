@@ -1,0 +1,6 @@
+{
+  "name": "override-lab",
+  "private": true,
+  "dependencies": { "satori": "0.33.4" },
+  "pnpm": { "overrides": { "satori>fflate": "0.7.5" } }
+}
