@@ -1,0 +1,8 @@
+{
+  "name": "approval-scope-tool",
+  "private": true,
+  "dependencies": {
+    "@anthropic-ai/sandbox-runtime": "0.0.78",
+    "pnpm": "10.33.0"
+  }
+}
