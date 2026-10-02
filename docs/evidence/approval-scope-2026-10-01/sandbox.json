@@ -1,0 +1,286 @@
+{
+  "lab": "approval-scope",
+  "mode": "sandbox",
+  "environment": {
+    "node": "v22.23.2",
+    "npm": "10.9.8",
+    "pnpm": "10.33.0",
+    "git": "git version 2.39.5",
+    "strace": "strace -- version 6.1",
+    "bubblewrap": "bubblewrap 0.8.0",
+    "sandboxRuntime": "0.0.78",
+    "image": "sha256:76d7355d8e1c590e7c6dd3b9e08a6c027bef05b8225bb76401800ddb52921bd7",
+    "revision": "548b2327a40d4a2cb41de32d03709460917e29bc",
+    "dirty": "false"
+  },
+  "observations": [
+    {
+      "arm": "npm-install-ignore-scripts",
+      "sandbox": true,
+      "control": true,
+      "command": "npm install --ignore-scripts --offline --no-audit --no-fund",
+      "install": {
+        "exit": 0,
+        "signal": null,
+        "traceCaptured": true,
+        "processesStarted": 2,
+        "programs": [
+          "node",
+          "npm"
+        ],
+        "lifecycleScripts": [],
+        "mutationsByLocation": {
+          "elsewhere": {
+            "ok": 1122,
+            "denied": {
+              "ENOENT": 8
+            }
+          },
+          "workspace-node_modules": {
+            "ok": 5,
+            "denied": {
+              "ENOENT": 1
+            }
+          },
+          "workspace-other": {
+            "ok": 1,
+            "denied": {}
+          }
+        },
+        "notableMutations": [],
+        "output": {
+          "scriptsShown": [],
+          "pnpmIgnoredBuildsWarning": false,
+          "tail": "\nadded 1 package in 2s\n"
+        },
+        "markersInside": [],
+        "markersOutside": [],
+        "preCommitHookPresent": false
+      },
+      "commit": {
+        "exit": 0,
+        "hookRan": false,
+        "canaryExecs": 0,
+        "markersInside": [],
+        "markersOutside": []
+      }
+    },
+    {
+      "arm": "npm-install",
+      "sandbox": true,
+      "control": false,
+      "command": "npm install --offline --no-audit --no-fund",
+      "install": {
+        "exit": 0,
+        "signal": null,
+        "traceCaptured": true,
+        "processesStarted": 8,
+        "programs": [
+          "node",
+          "npm",
+          "sh"
+        ],
+        "lifecycleScripts": [
+          "node canary.js dep:postinstall",
+          "node canary.js app:postinstall",
+          "node install-hook.js"
+        ],
+        "mutationsByLocation": {
+          "elsewhere": {
+            "ok": 15,
+            "denied": {
+              "ENOENT": 6
+            }
+          },
+          "workspace-node_modules": {
+            "ok": 5,
+            "denied": {
+              "ENOENT": 1
+            }
+          },
+          "workspace-.canary": {
+            "ok": 3,
+            "denied": {}
+          },
+          "outside-workspace-marker-dir": {
+            "ok": 0,
+            "denied": {
+              "EROFS": 2
+            }
+          },
+          "workspace-other": {
+            "ok": 1,
+            "denied": {}
+          },
+          "workspace-.git/hooks": {
+            "ok": 0,
+            "denied": {
+              "EROFS": 1
+            }
+          }
+        },
+        "notableMutations": [
+          {
+            "call": "mkdir",
+            "path": "<workspace>/.canary",
+            "ok": true,
+            "errno": null
+          },
+          {
+            "call": "openat",
+            "path": "<workspace>/.canary/dep:postinstall",
+            "ok": true,
+            "errno": null
+          },
+          {
+            "call": "openat",
+            "path": "<outside>/dep:postinstall",
+            "ok": false,
+            "errno": "EROFS"
+          },
+          {
+            "call": "openat",
+            "path": "<workspace>/.canary/app:postinstall",
+            "ok": true,
+            "errno": null
+          },
+          {
+            "call": "openat",
+            "path": "<outside>/app:postinstall",
+            "ok": false,
+            "errno": "EROFS"
+          },
+          {
+            "call": "openat",
+            "path": "<workspace>/.git/hooks/pre-commit",
+            "ok": false,
+            "errno": "EROFS"
+          }
+        ],
+        "output": {
+          "scriptsShown": [
+            "node canary.js app:postinstall",
+            "node install-hook.js"
+          ],
+          "pnpmIgnoredBuildsWarning": false,
+          "tail": "\n> canary-app@1.0.0 postinstall\n> node canary.js app:postinstall\n\nCANARY app:postinstall inside=ok outside=EROFS\n\n> canary-app@1.0.0 prepare\n> node install-hook.js\n\nHOOK-INSTALL EROFS\n\nadded 1 package in 2s\n"
+        },
+        "markersInside": [
+          "app:postinstall",
+          "dep:postinstall"
+        ],
+        "markersOutside": [],
+        "preCommitHookPresent": false
+      },
+      "commit": {
+        "exit": 0,
+        "hookRan": false,
+        "canaryExecs": 0,
+        "markersInside": [
+          "app:postinstall",
+          "dep:postinstall"
+        ],
+        "markersOutside": []
+      }
+    },
+    {
+      "arm": "pnpm-install",
+      "sandbox": true,
+      "control": false,
+      "command": "pnpm install --frozen-lockfile --offline --store-dir=/tmp/pnpm-store",
+      "install": {
+        "exit": 0,
+        "signal": null,
+        "traceCaptured": true,
+        "processesStarted": 5,
+        "programs": [
+          "/usr/local/bin/node",
+          "node",
+          "sh"
+        ],
+        "lifecycleScripts": [
+          "node canary.js app:postinstall",
+          "node install-hook.js"
+        ],
+        "mutationsByLocation": {
+          "elsewhere": {
+            "ok": 528,
+            "denied": {
+              "ENOENT": 1
+            }
+          },
+          "workspace-node_modules": {
+            "ok": 16,
+            "denied": {
+              "ENOENT": 4
+            }
+          },
+          "workspace-.canary": {
+            "ok": 2,
+            "denied": {}
+          },
+          "outside-workspace-marker-dir": {
+            "ok": 0,
+            "denied": {
+              "EROFS": 1
+            }
+          },
+          "workspace-.git/hooks": {
+            "ok": 0,
+            "denied": {
+              "EROFS": 1
+            }
+          }
+        },
+        "notableMutations": [
+          {
+            "call": "mkdir",
+            "path": "<workspace>/.canary",
+            "ok": true,
+            "errno": null
+          },
+          {
+            "call": "openat",
+            "path": "<workspace>/.canary/app:postinstall",
+            "ok": true,
+            "errno": null
+          },
+          {
+            "call": "openat",
+            "path": "<outside>/app:postinstall",
+            "ok": false,
+            "errno": "EROFS"
+          },
+          {
+            "call": "openat",
+            "path": "<workspace>/.git/hooks/pre-commit",
+            "ok": false,
+            "errno": "EROFS"
+          }
+        ],
+        "output": {
+          "scriptsShown": [
+            "node canary.js app:postinstall",
+            "node install-hook.js"
+          ],
+          "pnpmIgnoredBuildsWarning": true,
+          "tail": "Lockfile is up to date, resolution step is skipped\nProgress: resolved 1, reused 0, downloaded 0, added 0\nPackages: +1\n+\nProgress: resolved 1, reused 0, downloaded 1, added 1, done\n\ndependencies:\n+ canary-dep 1.0.0\n\n\n> canary-app@1.0.0 postinstall /work/pnpm-install-B4fnF4/app\n> node canary.js app:postinstall\n\nCANARY app:postinstall inside=ok outside=EROFS\n\n> canary-app@1.0.0 prepare /work/pnpm-install-B4fnF4/app\n> node install-hook.js\n\nHOOK-INSTALL EROFS\n╭ Warning ─────────────────────────────────────────────────────────────────────╮\n│                                                                              │\n│   Ignored build scripts: canary-dep@file:vendor/canary-dep-1.0.0.tgz.        │\n│   Run \"pnpm approve-builds\" to pick which dependencies should be allowed     │\n│   to run scripts.                                                            │\n│                                                                              │\n╰──────────────────────────────────────────────────────────────────────────────╯\nDone in 1.9s using pnpm v10.33.0\n"
+        },
+        "markersInside": [
+          "app:postinstall"
+        ],
+        "markersOutside": [],
+        "preCommitHookPresent": false
+      },
+      "commit": {
+        "exit": 0,
+        "hookRan": false,
+        "canaryExecs": 0,
+        "markersInside": [
+          "app:postinstall"
+        ],
+        "markersOutside": []
+      }
+    }
+  ]
+}

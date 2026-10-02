@@ -1,0 +1,58 @@
+TAP version 13
+# Subtest: parser: successful execs only, resumed lines rejoined
+ok 1 - parser: successful execs only, resumed lines rejoined
+  ---
+  duration_ms: 8.508821
+  type: 'test'
+  ...
+# Subtest: parser: reads are ignored, EEXIST is not a mutation, denials keep their errno
+ok 2 - parser: reads are ignored, EEXIST is not a mutation, denials keep their errno
+  ---
+  duration_ms: 1.09462
+  type: 'test'
+  ...
+# Subtest: classify: hooks, workspace, outside and relative paths are distinct
+ok 3 - classify: hooks, workspace, outside and relative paths are distinct
+  ---
+  duration_ms: 0.804399
+  type: 'test'
+  ...
+# Subtest: control npm-install-ignore-scripts: no lifecycle script, marker or hook
+ok 4 - control npm-install-ignore-scripts: no lifecycle script, marker or hook
+  ---
+  duration_ms: 2921.743767
+  type: 'test'
+  ...
+# Subtest: control npm-ci-ignore-scripts: no lifecycle script, marker or hook
+ok 5 - control npm-ci-ignore-scripts: no lifecycle script, marker or hook
+  ---
+  duration_ms: 2099.705719
+  type: 'test'
+  ...
+# Subtest: control pnpm-install-ignore-scripts: no lifecycle script, marker or hook
+ok 6 - control pnpm-install-ignore-scripts: no lifecycle script, marker or hook
+  ---
+  duration_ms: 1701.124773
+  type: 'test'
+  ...
+# Subtest: positive npm-install: three scripts, markers on both sides, hook fires at commit
+ok 7 - positive npm-install: three scripts, markers on both sides, hook fires at commit
+  ---
+  duration_ms: 2452.571039
+  type: 'test'
+  ...
+# Subtest: sandbox-runtime without user namespaces: command does not run
+ok 8 - sandbox-runtime without user namespaces: command does not run
+  ---
+  duration_ms: 682.898199
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 10030.230985

@@ -1,0 +1,10 @@
+{
+  "name": "canary-dep",
+  "version": "1.0.0",
+  "description": "Synthetic dependency whose postinstall only writes a marker file.",
+  "license": "MIT",
+  "files": ["canary.js"],
+  "scripts": {
+    "postinstall": "node canary.js dep:postinstall"
+  }
+}

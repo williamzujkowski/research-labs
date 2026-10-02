@@ -1,0 +1,61 @@
+# Snippet check: the article's two inline snippets, run in the lab image built at 548b232
+# (--network none, --read-only, nonroot, --cap-drop ALL); offline npm flags added.
+# Part 1: unmodified fixture. Part 2: fixture plus one benign preinstall with escaped quotes,
+# comparing the naive [^"]* grep with the escape-aware pattern.
+
+## part 1 script
+#!/bin/sh
+# the post's revised snippets, verbatim except --offline flags, on the unmodified fixture
+set -u
+mkdir -p /tmp/home; export HOME=/tmp/home npm_config_cache=/tmp/npmcache CANARY_OUTSIDE_DIR=/tmp/out
+cp -r /lab/template /work/app && cd /work/app
+git init -q
+npm ci --ignore-scripts --offline --no-audit --no-fund >/dev/null
+npm query ':attr(scripts, [preinstall]), :attr(scripts, [install]), :attr(scripts, [postinstall]), :attr(scripts, [prepublish]), :attr(scripts, [preprepare]), :attr(scripts, [prepare]), :attr(scripts, [postprepare])' | node -e 'for (const p of JSON.parse(require("fs").readFileSync(0))) console.log(p.location || "(root)", JSON.stringify(p.scripts))'
+rm -rf node_modules
+strace -f -qq -s 4096 -e trace=execve -o install.trace npm ci --offline --no-audit --no-fund >/dev/null
+grep '"-c", .* = 0$' install.trace | grep -oE '"-c", "([^"\\]|\\.)*"'
+
+## part 1 output
+(root) {"postinstall":"node canary.js app:postinstall","prepare":"node install-hook.js"}
+node_modules/canary-dep {"postinstall":"node canary.js dep:postinstall"}
+"-c", "node canary.js dep:postinstall"
+"-c", "node canary.js app:postinstall"
+"-c", "node install-hook.js"
+
+## part 2 script
+#!/bin/sh
+# verify revised snippets; scratch only. Adds one benign script with an embedded quoted string.
+set -u
+mkdir -p /tmp/home; export HOME=/tmp/home npm_config_cache=/tmp/npmcache CANARY_OUTSIDE_DIR=/tmp/out
+cp -r /lab/template /work/app && cd /work/app
+git init -q
+node -e 'const f="package.json";const p=JSON.parse(require("fs").readFileSync(f));p.scripts.preinstall="node -e \"console.log(\\\"quoted payload\\\")\"";require("fs").writeFileSync(f,JSON.stringify(p,null,2))'
+grep preinstall package.json
+echo "== inventory (all seven install-time lifecycle scripts)"
+npm ci --ignore-scripts --offline --no-audit --no-fund >/dev/null
+npm query ':attr(scripts, [preinstall]), :attr(scripts, [install]), :attr(scripts, [postinstall]), :attr(scripts, [prepublish]), :attr(scripts, [preprepare]), :attr(scripts, [prepare]), :attr(scripts, [postprepare])' | node -e 'for (const p of JSON.parse(require("fs").readFileSync(0))) console.log(p.location || "(root)", JSON.stringify(p.scripts))'
+rm -rf node_modules .canary
+echo "== trace"
+strace -f -qq -s 4096 -e trace=execve -o /tmp/install.trace npm ci --offline --no-audit --no-fund >/dev/null
+echo "-- old grep"
+grep '"-c", .* = 0$' /tmp/install.trace | grep -o '"-c", "[^"]*"'
+echo "-- new grep"
+grep '"-c", .* = 0$' /tmp/install.trace | grep -o -E '"-c", "([^"\\]|\\.)*"'
+
+## part 2 output
+    "preinstall": "node -e \"console.log(\\\"quoted payload\\\")\""
+== inventory (all seven install-time lifecycle scripts)
+(root) {"postinstall":"node canary.js app:postinstall","prepare":"node install-hook.js","preinstall":"node -e \"console.log(\\\"quoted payload\\\")\""}
+node_modules/canary-dep {"postinstall":"node canary.js dep:postinstall"}
+== trace
+-- old grep
+"-c", "node canary.js dep:postinstall"
+"-c", "node -e \"
+"-c", "node canary.js app:postinstall"
+"-c", "node install-hook.js"
+-- new grep
+"-c", "node canary.js dep:postinstall"
+"-c", "node -e \"console.log(\\\"quoted payload\\\")\""
+"-c", "node canary.js app:postinstall"
+"-c", "node install-hook.js"
